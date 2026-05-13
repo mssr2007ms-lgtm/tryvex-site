@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — TRYVEX</title>
+  <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+
+  <div class="login-page">
+    <div class="login-page__stars"></div>
+
+    <div class="login-card">
+
+      <div class="login-card__hero">
+        <img class="login-card__hero-logo" src="../assets/images/login_logo.png" alt="TRYVEX">
+        <span class="login-card__hero-name">TRYVEX</span>
+      </div>
+
+      <p class="login-card__subtitle">Создать аккаунт</p>
+
+      <form class="login-form" id="registerForm" novalidate>
+
+        <div class="login-form__field">
+          <input class="login-form__input" type="text" id="username" name="username"
+            placeholder="Имя пользователя" autocomplete="username" required>
+          <span class="login-form__icon">👤</span>
+        </div>
+
+        <div class="login-form__field">
+          <input class="login-form__input" type="email" id="email" name="email"
+            placeholder="Email" autocomplete="email" required>
+          <span class="login-form__icon">✉</span>
+        </div>
+
+        <div class="login-form__field">
+          <input class="login-form__input" type="password" id="password" name="password"
+            placeholder="Пароль" autocomplete="new-password" required>
+          <span class="login-form__icon" id="togglePassword" title="Показать пароль">👁</span>
+        </div>
+
+        <div class="login-form__field">
+          <input class="login-form__input" type="password" id="passwordConfirm" name="passwordConfirm"
+            placeholder="Повторите пароль" autocomplete="new-password" required>
+          <span class="login-form__icon" id="toggleConfirm" title="Показать пароль">👁</span>
+        </div>
+
+        <div class="register-agree">
+          <label class="register-agree__label">
+            <input type="checkbox" id="agree" class="register-agree__check">
+            <span>Я принимаю <a href="#" class="login-form__link">условия использования</a> и <a href="#" class="login-form__link">политику конфиденциальности</a></span>
+          </label>
+        </div>
+
+        <button type="submit" class="login-form__btn-primary">Зарегистрироваться</button>
+
+        <div class="login-form__links">
+          <span style="font-size:var(--size-xs); color:var(--color-text-dim);">Уже есть аккаунт?</span>
+          <a href="login.html" class="login-form__link">Войти</a>
+        </div>
+
+      </form>
+
+      <div class="login-card__bottom">
+        <div class="login-card__lang">
+          <span class="login-card__lang-icon">🌐</span>
+          <button class="login-card__lang-btn login-card__lang-btn--active" data-lang="ru">RU</button>
+          <button class="login-card__lang-btn login-card__lang-btn--inactive" data-lang="en">EN</button>
+        </div>
+        <a href="../index.html" class="login-card__close" title="На главную">✕</a>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    .register-agree {
+      padding: 0.2rem 0;
+    }
+    .register-agree__label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: var(--size-xs);
+      color: var(--color-text-dim);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+    .register-agree__check {
+      margin-top: 2px;
+      accent-color: var(--color-accent);
+      flex-shrink: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50%       { opacity: 0.04; }
+    }
+    @keyframes logoPulse {
+      0%, 100% { filter: drop-shadow(0 0 16px rgba(0,212,255,0.5)); }
+      50%       { filter: drop-shadow(0 0 30px rgba(0,212,255,0.8)); }
+    }
+  </style>
+
+  <script type="module">
+    // Звёзды
+    const container = document.querySelector('.login-page__stars');
+    for (let i = 0; i < 100; i++) {
+      const s = document.createElement('div');
+      const size = Math.random() * 2 + 0.5;
+      s.style.cssText = `
+        position:absolute; border-radius:50%; background:#fff;
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%; left:${Math.random()*100}%;
+        opacity:0.2;
+        animation:twinkle ${(Math.random()*4+2).toFixed(1)}s ease-in-out infinite;
+        animation-delay:${(Math.random()*5).toFixed(1)}s;
+      `;
+      container.appendChild(s);
+    }
+
+    // Показать/скрыть пароль
+    ['togglePassword', 'toggleConfirm'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', () => {
+        const input = document.getElementById(id === 'togglePassword' ? 'password' : 'passwordConfirm');
+        input.type = input.type === 'password' ? 'text' : 'password';
+      });
+    });
+
+    // Переключение языка
+    document.querySelectorAll('.login-card__lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.login-card__lang-btn').forEach(b => {
+          b.className = 'login-card__lang-btn login-card__lang-btn--inactive';
+        });
+        btn.className = 'login-card__lang-btn login-card__lang-btn--active';
+      });
+    });
+
+    // Submit — заглушка
+    document.getElementById('registerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pass    = document.getElementById('password').value;
+      const confirm = document.getElementById('passwordConfirm').value;
+      if (pass !== confirm) { alert('Пароли не совпадают'); return; }
+      if (!document.getElementById('agree').checked) { alert('Примите условия использования'); return; }
+      // TODO: fetch('/api/auth/register', { method: 'POST', ... })
+      alert('Регистрация будет доступна после подключения бэкенда');
+    });
+  </script>
+
+</body>
+</html>

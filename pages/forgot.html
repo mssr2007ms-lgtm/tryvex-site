@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Восстановление пароля — TRYVEX</title>
+  <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+
+  <div class="login-page">
+    <div class="login-page__stars"></div>
+
+    <div class="login-card">
+
+      <div class="login-card__hero">
+        <img class="login-card__hero-logo" src="../assets/images/login_logo.png" alt="TRYVEX">
+        <span class="login-card__hero-name">TRYVEX</span>
+      </div>
+
+      <!-- Шаг 1: ввод email -->
+      <div id="stepEmail">
+        <p class="login-card__subtitle">Восстановление пароля</p>
+        <p style="text-align:center; font-size:var(--size-xs); color:var(--color-text-dim); margin-bottom:var(--space-md); line-height:1.6;">
+          Введите email, привязанный к аккаунту.<br>Мы отправим ссылку для сброса пароля.
+        </p>
+
+        <form class="login-form" id="forgotForm" novalidate>
+          <div class="login-form__field">
+            <input class="login-form__input" type="email" id="email"
+              placeholder="Email" autocomplete="email" required>
+            <span class="login-form__icon">✉</span>
+          </div>
+
+          <button type="submit" class="login-form__btn-primary">Отправить ссылку</button>
+
+          <div class="login-form__links">
+            <a href="login.html" class="login-form__link">← Вернуться ко входу</a>
+          </div>
+        </form>
+      </div>
+
+      <!-- Шаг 2: подтверждение (показывается после отправки) -->
+      <div id="stepDone" style="display:none; text-align:center; padding: var(--space-md) 0;">
+        <div style="font-size:3rem; margin-bottom:var(--space-sm);">✉</div>
+        <h3 style="font-family:var(--font-primary); color:var(--color-silver); letter-spacing:0.06em; margin-bottom:var(--space-xs);">Письмо отправлено</h3>
+        <p style="font-size:var(--size-sm); color:var(--color-text-dim); line-height:1.6; margin-bottom:var(--space-lg);">
+          Проверьте почту и перейдите по ссылке в письме.<br>
+          Письмо может прийти в папку «Спам».
+        </p>
+        <a href="login.html" class="btn btn-outline" style="display:inline-flex;">← Вернуться ко входу</a>
+      </div>
+
+      <div class="login-card__bottom">
+        <div class="login-card__lang">
+          <span class="login-card__lang-icon">🌐</span>
+          <button class="login-card__lang-btn login-card__lang-btn--active">RU</button>
+          <button class="login-card__lang-btn login-card__lang-btn--inactive">EN</button>
+        </div>
+        <a href="../index.html" class="login-card__close" title="На главную">✕</a>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; } 50% { opacity: 0.04; }
+    }
+    @keyframes logoPulse {
+      0%, 100% { filter: drop-shadow(0 0 16px rgba(0,212,255,0.5)); }
+      50%       { filter: drop-shadow(0 0 30px rgba(0,212,255,0.8)); }
+    }
+  </style>
+
+  <script type="module">
+    // Звёзды
+    const container = document.querySelector('.login-page__stars');
+    for (let i = 0; i < 100; i++) {
+      const s = document.createElement('div');
+      const size = Math.random() * 2 + 0.5;
+      s.style.cssText = `
+        position:absolute; border-radius:50%; background:#fff;
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%; left:${Math.random()*100}%;
+        opacity:0.2;
+        animation:twinkle ${(Math.random()*4+2).toFixed(1)}s ease-in-out infinite;
+        animation-delay:${(Math.random()*5).toFixed(1)}s;
+      `;
+      container.appendChild(s);
+    }
+
+    // Переключение языка
+    document.querySelectorAll('.login-card__lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.login-card__lang-btn').forEach(b => {
+          b.className = 'login-card__lang-btn login-card__lang-btn--inactive';
+        });
+        btn.className = 'login-card__lang-btn login-card__lang-btn--active';
+      });
+    });
+
+    // Submit — заглушка, при переносе на бэкенд: fetch('/api/auth/forgot', ...)
+    document.getElementById('forgotForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if (!email) return;
+      document.getElementById('stepEmail').style.display = 'none';
+      document.getElementById('stepDone').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>

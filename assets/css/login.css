@@ -1,0 +1,284 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Liquidity lines — горизонтальный data feed */
+.login-page__lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.login-page__line {
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,200,240,0.0) 20%,
+    rgba(0,200,240,0.08) 50%,
+    rgba(0,200,240,0.0) 80%,
+    transparent 100%
+  );
+  animation: liquidityFlow linear infinite;
+}
+
+@keyframes liquidityFlow {
+  0%   { transform: translateX(-30%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(30%); opacity: 0; }
+}
+
+/* Тихий cyan glow в углу */
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(0,200,240,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Card */
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-panel);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: 0 8px 48px rgba(0,0,0,0.7);
+}
+
+/* Тонкая cyan линия сверху карточки */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+/* Hero — логотип без тяжёлого фона */
+.login-card__hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm) 0;
+}
+
+.login-card__hero-logo {
+  width: auto;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(0,212,255,0.5));
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+.login-card__hero-name {
+  font-family: var(--font-primary);
+  font-size: var(--size-xl);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-silver);
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+
+/* Subtitle */
+.login-card__subtitle {
+  text-align: center;
+  font-size: var(--size-sm);
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.02em;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.login-form__field {
+  position: relative;
+}
+
+.login-form__input {
+  width: 100%;
+  padding: 0.9rem 3rem 0.9rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--size-sm);
+  outline: none;
+  transition: var(--transition);
+}
+
+.login-form__input::placeholder {
+  color: var(--color-text-dim);
+}
+
+.login-form__input:focus {
+  border-color: var(--color-accent);
+  background: rgba(0,212,255,0.04);
+  box-shadow: 0 0 0 2px rgba(0,212,255,0.1);
+}
+
+.login-form__icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-dim);
+  font-size: var(--size-base);
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+}
+
+.login-form__icon:hover {
+  color: var(--color-accent);
+}
+
+/* Buttons */
+.login-form__btn-primary {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  color: #000;
+  font-family: var(--font-primary);
+  font-size: var(--size-base);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+
+.login-form__btn-primary:hover {
+  box-shadow: 0 0 35px rgba(0,212,255,0.55);
+  transform: translateY(-1px);
+}
+
+.login-form__btn-guest {
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  color: var(--color-text-dim);
+  font-size: var(--size-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+
+.login-form__btn-guest:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+/* Links row */
+.login-form__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+
+.login-form__link {
+  font-size: var(--size-xs);
+  color: var(--color-text-dim);
+  transition: var(--transition);
+}
+
+.login-form__link:hover {
+  color: var(--color-accent);
+}
+
+.login-form__dot {
+  font-size: var(--size-xs);
+  color: var(--color-text-dim);
+}
+
+/* Bottom bar */
+.login-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.login-card__lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.login-card__lang-icon {
+  font-size: var(--size-lg);
+  color: var(--color-text-dim);
+}
+
+.login-card__lang-btn {
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+}
+
+.login-card__lang-btn--active {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.login-card__lang-btn--inactive {
+  background: rgba(255,255,255,0.06);
+  color: var(--color-text-dim);
+}
+
+.login-card__lang-btn--inactive:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--color-text);
+}
+
+.login-card__close {
+  color: var(--color-text-dim);
+  font-size: var(--size-lg);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+  padding: 4px;
+}
+
+.login-card__close:hover {
+  color: var(--color-text);
+}

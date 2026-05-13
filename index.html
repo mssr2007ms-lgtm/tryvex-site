@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TRYVEX — профессиональный торговый терминал. Скальпинг, алготрейдинг, соцсеть трейдеров и обучение в одном приложении.">
+  <title>TRYVEX — Торговый терминал нового поколения</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="apple-touch-icon" href="assets/icons/favicon.png">
+
+  <!-- Open Graph (превью при шаринге ссылки в Telegram, VK, Twitter) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="TRYVEX — Торговый терминал нового поколения">
+  <meta property="og:description" content="Скальпинг, алготрейдинг, соцсеть трейдеров и обучение — всё в одном приложении.">
+  <meta property="og:image"       content="assets/images/logo.png">
+  <meta property="og:site_name"   content="TRYVEX">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="TRYVEX — Торговый терминал нового поколения">
+  <meta name="twitter:description" content="Скальпинг, алготрейдинг, соцсеть трейдеров и обучение — всё в одном приложении.">
+  <meta name="twitter:image"       content="assets/images/logo.png">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/hero.css">
+  <link rel="stylesheet" href="assets/css/features.css">
+  <link rel="stylesheet" href="assets/css/about.css">
+  <link rel="stylesheet" href="assets/css/download.css">
+  <link rel="stylesheet" href="assets/css/pricing.css">
+  <link rel="stylesheet" href="assets/css/faq.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo">
+        <img class="nav__logo-svg" src="assets/images/icon.png" alt="TRYVEX">
+        <span class="nav__logo-text">TRYVEX</span>
+      </a>
+
+      <nav class="nav__links" id="navLinks">
+        <a href="#features"  class="nav__link">Возможности</a>
+        <a href="#algo"      class="nav__link">Алго</a>
+        <a href="#education" class="nav__link">Обучение</a>
+        <a href="app/social/index.html" class="nav__link">Соцсеть</a>
+        <a href="#screeners" class="nav__link">Скринеры</a>
+        <a href="#pricing"   class="nav__link">Тарифы</a>
+      </nav>
+
+      <div class="nav__actions">
+        <a href="pages/login.html" class="btn btn-outline btn--sm">Войти</a>
+        <a href="#download"        class="btn btn-primary btn--sm">Скачать</a>
+      </div>
+
+      <button class="nav__burger" id="navBurger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero__bg"></div>
+    <div class="hero__grid"></div>
+    <div class="hero__scanline"></div>
+
+    <div class="hero__content">
+
+      <img class="hero__logo-mark" src="assets/images/logo.png" alt="TRYVEX">
+
+      <!-- Boot sequence -->
+      <div class="hero__boot">
+        <span class="hero__boot-line">INITIALIZING MARKET DATA</span>
+        <span class="hero__boot-line">CONNECTING TO EXCHANGES</span>
+        <span class="hero__boot-line">SYNCING ORDER BOOKS</span>
+        <span class="hero__boot-line">SYSTEM READY</span>
+      </div>
+
+      <h1 class="hero__title">TRYVEX</h1>
+
+      <p class="hero__tagline">
+        Institutional crypto terminal.<br>
+        <span>Engineered for Execution.</span>
+      </p>
+
+      <!-- Live status bar -->
+      <div class="hero__status">
+        <div class="hero__status-item">
+          <div class="hero__status-dot"></div>
+          MARKET FEED ACTIVE
+        </div>
+        <div class="hero__status-item">
+          <div class="hero__status-dot"></div>
+          50+ EXCHANGES
+        </div>
+        <div class="hero__status-item">
+          <div class="hero__status-dot hero__status-dot--warn"></div>
+          BETA · v1.0
+        </div>
+      </div>
+
+      <div class="hero__cta">
+        <a href="#download" class="btn btn-primary">Скачать терминал</a>
+        <a href="#features" class="btn btn-outline">Возможности</a>
+      </div>
+
+    </div>
+
+    <div class="hero__scroll">
+      <span>SCROLL</span>
+      <div class="hero__scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STATS BAR
+  ═══════════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="container stats-bar__inner">
+      <div class="stats-bar__item">
+        <span class="stats-bar__value">50+</span>
+        <span class="stats-bar__label">Бирж и брокеров</span>
+      </div>
+      <div class="stats-bar__divider"></div>
+      <div class="stats-bar__item">
+        <span class="stats-bar__value">10 000+</span>
+        <span class="stats-bar__label">Трейдеров</span>
+      </div>
+      <div class="stats-bar__divider"></div>
+      <div class="stats-bar__item">
+        <span class="stats-bar__value">0 мс</span>
+        <span class="stats-bar__label">Задержка ордеров</span>
+      </div>
+      <div class="stats-bar__divider"></div>
+      <div class="stats-bar__item">
+        <span class="stats-bar__value">24/7</span>
+        <span class="stats-bar__label">Поддержка</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURES
+  ═══════════════════════════════════════════ -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Всё что нужно <span>трейдеру</span></h2>
+      <div class="accent-line"></div>
+      <p class="section-subtitle">Один терминал заменяет десятки инструментов</p>
+
+      <div class="features__grid">
+
+        <div class="feature-card">
+          <span class="feature-card__icon">⚡</span>
+          <h3 class="feature-card__title">Скальпинг</h3>
+          <p class="feature-card__desc">Молниеносное исполнение ордеров, стакан заявок, горячие клавиши и кастомные сетки для ручной торговли.</p>
+          <span class="feature-card__tag">Спот · Фьючерсы</span>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-card__icon">🤖</span>
+          <h3 class="feature-card__title">Алготрейдинг</h3>
+          <p class="feature-card__desc">Пишите и запускайте торговых роботов прямо в терминале. Бэктест, оптимизация, работа в реальном времени.</p>
+          <span class="feature-card__tag">C# · Встроенная IDE</span>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-card__icon">📡</span>
+          <h3 class="feature-card__title">Скринеры</h3>
+          <p class="feature-card__desc">Фильтруйте тысячи инструментов по сотням параметров в реальном времени. Находите точки входа мгновенно.</p>
+          <span class="feature-card__tag">Реальное время</span>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-card__icon">👥</span>
+          <h3 class="feature-card__title">Соцсеть трейдеров</h3>
+          <p class="feature-card__desc">Делитесь сделками, идеями и стратегиями. Следите за топ-трейдерами. Веб-версия синхронизирована с приложением.</p>
+          <span class="feature-card__tag">Веб + Десктоп</span>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-card__icon">🎓</span>
+          <h3 class="feature-card__title">Обучение</h3>
+          <p class="feature-card__desc">Курсы от практикующих трейдеров. Теория, практика, разбор сделок. Доступ открывается автоматически после оплаты.</p>
+          <span class="feature-card__tag">Видео · Практика</span>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-card__icon">📊</span>
+          <h3 class="feature-card__title">Готовые стратегии</h3>
+          <p class="feature-card__desc">Библиотека проверенных стратегий для новичков и профессионалов. Настройте под любой рынок и запустите за минуты.</p>
+          <span class="feature-card__tag">Тренд · Сетка · Арбитраж</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about__inner">
+
+        <div class="about__text">
+          <h2 class="section-title">Почему <span>TRYVEX</span>?</h2>
+          <div class="accent-line"></div>
+          <p class="about__lead">
+            Мы создали терминал, который объединяет всё необходимое трейдеру в одном месте — без лишних вкладок, без сторонних сервисов, без потери скорости.
+          </p>
+          <ul class="about__list">
+            <li class="about__item">
+              <div class="about__item-icon">⚡</div>
+              <div class="about__item-body">
+                <h4>Скорость исполнения</h4>
+                <p>Прямое подключение к бирже — минимальные задержки при отправке ордеров.</p>
+              </div>
+            </li>
+            <li class="about__item">
+              <div class="about__item-icon">🔗</div>
+              <div class="about__item-body">
+                <h4>Всё в одном</h4>
+                <p>Торговля, алго, соцсеть и обучение — один аккаунт, одно приложение.</p>
+              </div>
+            </li>
+            <li class="about__item">
+              <div class="about__item-icon">🛡</div>
+              <div class="about__item-body">
+                <h4>Безопасность</h4>
+                <p>Ваши API-ключи хранятся локально и никогда не передаются на наши серверы.</p>
+              </div>
+            </li>
+            <li class="about__item">
+              <div class="about__item-icon">🌐</div>
+              <div class="about__item-body">
+                <h4>Веб и десктоп</h4>
+                <p>Соцсеть и личный кабинет доступны прямо в браузере — синхронизированы с приложением.</p>
+              </div>
+            </li>
+          </ul>
+          <a href="#download" class="btn btn-primary">Попробовать бесплатно</a>
+        </div>
+
+        <div class="about__mockup">
+          <div class="about__mockup-frame">
+            <div class="mockup-bar">
+              <div class="mockup-dot"></div>
+              <div class="mockup-dot"></div>
+              <div class="mockup-dot"></div>
+              <span class="mockup-title">TRYVEX TERMINAL</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-img">📈</div>
+              <p class="mockup-soon">СКРИНШОТЫ СКОРО</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       DOWNLOAD
+  ═══════════════════════════════════════════ -->
+  <section class="download" id="download">
+    <div class="container">
+      <div class="download__inner">
+        <h2 class="section-title">Скачать <span>TRYVEX</span></h2>
+        <div class="accent-line"></div>
+        <p class="section-subtitle">Бесплатно. Без ограничений по времени.</p>
+
+        <div class="download__platforms">
+
+          <div class="download-platform download-platform--active">
+            <div class="download-platform__badge">ДОСТУПНО</div>
+            <div class="download-platform__icon">🪟</div>
+            <span class="download-platform__name">Windows</span>
+            <span class="download-platform__version">Windows 10 / 11 · x64</span>
+            <a href="#" class="btn btn-primary" style="margin-top:var(--space-xs);">Скачать</a>
+          </div>
+
+          <div class="download-platform download-platform--soon">
+            <div class="download-platform__icon"></div>
+            <span class="download-platform__name">macOS</span>
+            <span class="download-platform__version">Скоро</span>
+            <button class="btn btn-outline" disabled style="margin-top:var(--space-xs); opacity:0.4; cursor:not-allowed;">Скоро</button>
+          </div>
+
+          <div class="download-platform download-platform--soon">
+            <div class="download-platform__icon">🐧</div>
+            <span class="download-platform__name">Linux</span>
+            <span class="download-platform__version">Скоро</span>
+            <button class="btn btn-outline" disabled style="margin-top:var(--space-xs); opacity:0.4; cursor:not-allowed;">Скоро</button>
+          </div>
+
+        </div>
+
+        <div class="download__requirements">
+          <div class="download__req-item">
+            <span class="download__req-label">ОС</span>
+            <span class="download__req-value">Windows 10 / 11</span>
+          </div>
+          <div class="download__req-item">
+            <span class="download__req-label">Процессор</span>
+            <span class="download__req-value">Intel / AMD 64-bit</span>
+          </div>
+          <div class="download__req-item">
+            <span class="download__req-label">ОЗУ</span>
+            <span class="download__req-value">4 ГБ и более</span>
+          </div>
+          <div class="download__req-item">
+            <span class="download__req-label">Диск</span>
+            <span class="download__req-value">500 МБ свободно</span>
+          </div>
+          <div class="download__req-item">
+            <span class="download__req-label">Интернет</span>
+            <span class="download__req-value">Постоянное подключение</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PRICING
+  ═══════════════════════════════════════════ -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-title">Выберите <span>тариф</span></h2>
+      <div class="accent-line"></div>
+      <p class="section-subtitle">Начните бесплатно, масштабируйтесь по мере роста</p>
+
+      <div class="pricing__grid">
+
+        <!-- Free -->
+        <div class="pricing-card">
+          <h3 class="pricing-card__name">FREE</h3>
+          <p class="pricing-card__desc">Базовый доступ к терминалу</p>
+          <div class="pricing-card__price">
+            <div class="pricing-card__amount pricing-card__amount--free">0 ₽</div>
+            <div class="pricing-card__period">навсегда</div>
+          </div>
+          <div class="pricing-card__divider"></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">Торговля спот</li>
+            <li class="pricing-card__feature">Базовые индикаторы</li>
+            <li class="pricing-card__feature">Лента соцсети</li>
+            <li class="pricing-card__feature">1 торговый аккаунт</li>
+          </ul>
+          <a href="pages/login.html" class="btn btn-outline">Начать бесплатно</a>
+        </div>
+
+        <!-- Pro (highlighted) -->
+        <div class="pricing-card pricing-card--highlight">
+          <div class="pricing-card__badge">ПОПУЛЯРНЫЙ</div>
+          <h3 class="pricing-card__name">PRO</h3>
+          <p class="pricing-card__desc">Полный арсенал трейдера</p>
+          <div class="pricing-card__price">
+            <div class="pricing-card__amount">1 990 ₽</div>
+            <div class="pricing-card__period">в месяц</div>
+          </div>
+          <div class="pricing-card__divider"></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">Всё из Free</li>
+            <li class="pricing-card__feature">Скальпинг-модуль</li>
+            <li class="pricing-card__feature">Скринеры</li>
+            <li class="pricing-card__feature">Алготрейдинг</li>
+            <li class="pricing-card__feature">До 5 аккаунтов</li>
+            <li class="pricing-card__feature">Приоритетная поддержка</li>
+          </ul>
+          <a href="#download" class="btn btn-primary">Попробовать 7 дней бесплатно</a>
+        </div>
+
+        <!-- Elite -->
+        <div class="pricing-card">
+          <h3 class="pricing-card__name">ELITE</h3>
+          <p class="pricing-card__desc">Максимум возможностей</p>
+          <div class="pricing-card__price">
+            <div class="pricing-card__amount">4 990 ₽</div>
+            <div class="pricing-card__period">в месяц</div>
+          </div>
+          <div class="pricing-card__divider"></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">Всё из Pro</li>
+            <li class="pricing-card__feature">Эксклюзивные курсы</li>
+            <li class="pricing-card__feature">Пульс-сигналы</li>
+            <li class="pricing-card__feature">API доступ</li>
+            <li class="pricing-card__feature">Неограниченные аккаунты</li>
+            <li class="pricing-card__feature">Персональный менеджер</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Связаться с нами</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Частые <span>вопросы</span></h2>
+      <div class="accent-line"></div>
+
+      <ul class="faq__list">
+
+        <li class="faq__item">
+          <button class="faq__question">
+            Это бесплатно?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Да, базовая версия TRYVEX бесплатна навсегда. Торговля спот, базовые индикаторы и лента соцсети доступны без оплаты. Расширенные функции — скальпинг-модуль, алготрейдинг и скринеры — входят в тариф Pro.</p>
+          </div>
+        </li>
+
+        <li class="faq__item">
+          <button class="faq__question">
+            Какие биржи поддерживаются?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>TRYVEX поддерживает ведущие криптовалютные биржи: Binance, Bybit, OKX и другие, а также российских брокеров. Список постоянно пополняется. Подключение происходит через API-ключи, которые хранятся только на вашем устройстве.</p>
+          </div>
+        </li>
+
+        <li class="faq__item">
+          <button class="faq__question">
+            Безопасно ли хранить API-ключи в приложении?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Да. API-ключи хранятся локально на вашем компьютере в зашифрованном виде и никогда не передаются на наши серверы. Мы рекомендуем создавать ключи только с правами на торговлю, без права вывода средств.</p>
+          </div>
+        </li>
+
+        <li class="faq__item">
+          <button class="faq__question">
+            Можно ли отменить подписку в любое время?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Да, подписку можно отменить в любой момент из личного кабинета. Доступ к Pro-функциям сохраняется до конца оплаченного периода. Возврат средств за неиспользованные дни рассматривается индивидуально.</p>
+          </div>
+        </li>
+
+        <li class="faq__item">
+          <button class="faq__question">
+            Есть ли мобильное приложение?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Сейчас TRYVEX доступен как десктопное приложение для Windows. Мобильная версия и версия для macOS находятся в разработке. Веб-версия соцсети и личный кабинет уже доступны в браузере на любом устройстве.</p>
+          </div>
+        </li>
+
+        <li class="faq__item">
+          <button class="faq__question">
+            Как работает алготрейдинг в TRYVEX?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Вы пишете торгового робота на C# прямо в терминале, запускаете бэктест на исторических данных, оптимизируете параметры и запускаете в реальную торговлю — всё без сторонних программ. Библиотека готовых стратегий доступна в тарифе Pro.</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer__top">
+
+        <div class="footer__brand">
+          <div class="footer__brand-logo">
+            <img src="assets/images/icon.png" alt="TRYVEX" width="28" height="28" style="border-radius:6px;">
+            <span class="footer__brand-name">TRYVEX</span>
+          </div>
+          <p class="footer__brand-desc">Профессиональный торговый терминал нового поколения для трейдеров любого уровня.</p>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__col-title">Продукт</p>
+          <ul class="footer__links">
+            <li><a href="#features"  class="footer__link">Возможности</a></li>
+            <li><a href="#pricing"   class="footer__link">Тарифы</a></li>
+            <li><a href="#download"  class="footer__link">Скачать</a></li>
+            <li><a href="app/social/index.html" class="footer__link">Соцсеть</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__col-title">Обучение</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Курсы</a></li>
+            <li><a href="#" class="footer__link">Вебинары</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Документация</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__col-title">Компания</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">О нас</a></li>
+            <li><a href="#" class="footer__link">Контакты</a></li>
+            <li><a href="#" class="footer__link">Партнёрам</a></li>
+            <li><a href="#" class="footer__link">Политика конфиденциальности</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 <span>TRYVEX</span>. Все права защищены.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Telegram">✈</a>
+          <a href="#" class="footer__social" aria-label="VK">В</a>
+          <a href="#" class="footer__social" aria-label="YouTube">▶</a>
+          <a href="#" class="footer__social" aria-label="Twitter/X">✕</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/boot.js"></script>
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/faq.js"></script>
+
+</body>
+</html>

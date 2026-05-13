@@ -1,0 +1,50 @@
+/* ── Мобильная адаптация ─────────────────────── */
+@media (max-width: 768px) {
+
+  /* Hero */
+  .hero__logo-mark { height: 90px; }
+  .hero__cta { flex-direction: column; align-items: center; }
+  .hero__cta .btn { width: 100%; max-width: 280px; justify-content: center; }
+  .hero__badges { gap: 6px; }
+  .hero__badge { font-size: 11px; }
+
+  /* Stats */
+  .stats-bar__inner { gap: var(--space-md); }
+  .stats-bar__value { font-size: var(--size-xl); }
+
+  /* Features */
+  .features__grid { grid-template-columns: 1fr; }
+
+  /* Pricing */
+  .pricing__grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .pricing-card--highlight {
+    transform: none;
+    order: -1;
+  }
+
+  /* Download */
+  .download__platforms { flex-direction: column; align-items: center; }
+  .download-platform { width: 100%; max-width: 320px; }
+
+  /* Footer */
+  .footer__top { grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+  .footer__bottom { flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+
+  /* Section titles */
+  .section-title { font-size: var(--size-2xl); }
+  .section-subtitle { font-size: var(--size-base); }
+
+  /* Buttons */
+  .btn { font-size: var(--size-xs); padding: 0.75rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .footer__top { grid-template-columns: 1fr; }
+  .hero__title { font-size: 2.5rem; letter-spacing: 0.12em; }
+  .container { padding: 0 var(--space-sm); }
+  section { padding: var(--space-xl) 0; }
+}

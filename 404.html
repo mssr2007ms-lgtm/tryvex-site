@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Страница не найдена · TRYVEX</title>
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      gap: var(--space-md);
+      padding: var(--space-xl) var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .error-page__stars { position: absolute; inset: 0; z-index: 0; }
+    .error-page__content { position: relative; z-index: 1; }
+
+    .error-page__code {
+      font-family: var(--font-primary);
+      font-size: clamp(6rem, 20vw, 10rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--color-accent);
+      text-shadow: 0 0 60px rgba(0,212,255,0.2);
+      margin-bottom: var(--space-xs);
+    }
+
+    .error-page__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-2xl);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--color-silver);
+      margin-bottom: var(--space-xs);
+    }
+
+    .error-page__desc {
+      font-size: var(--size-base);
+      color: var(--color-text-dim);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .error-page__actions {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--op, 0.3); }
+      50%       { opacity: calc(var(--op, 0.3) * 0.15); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">
+        <img class="nav__logo-svg" src="assets/images/icon.png" alt="TRYVEX">
+        <span class="nav__logo-text">TRYVEX</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="error-page">
+    <div class="error-page__stars" id="stars"></div>
+    <div class="error-page__content">
+      <div class="error-page__code">404</div>
+      <h1 class="error-page__title">Страница не найдена</h1>
+      <p class="error-page__desc">
+        Похоже, эта страница улетела в космос.<br>
+        Вернитесь на главную или воспользуйтесь меню.
+      </p>
+      <div class="error-page__actions">
+        <a href="index.html" class="btn btn-primary">На главную</a>
+        <a href="index.html#features" class="btn btn-outline">Возможности</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 120; i++) {
+      const s = document.createElement('div');
+      const size = Math.random() * 2 + 0.5;
+      s.style.cssText = `
+        position:absolute; border-radius:50%; background:#fff;
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%; left:${Math.random()*100}%;
+        --op:${(Math.random()*0.5+0.05).toFixed(2)};
+        opacity:var(--op);
+        animation:twinkle ${(Math.random()*4+2).toFixed(1)}s ease-in-out infinite;
+        animation-delay:${(Math.random()*5).toFixed(1)}s;
+      `;
+      container.appendChild(s);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Войти — TRYVEX</title>
+  <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+
+  <div class="login-page">
+    <div class="login-page__lines" id="loginLines"></div>
+
+    <div class="login-card">
+
+      <!-- Hero image с логотипом -->
+      <div class="login-card__hero">
+        <img class="login-card__hero-logo" src="../assets/images/login_logo.png" alt="TRYVEX">
+        <span class="login-card__hero-name">TRYVEX</span>
+      </div>
+
+      <p class="login-card__subtitle">Войти в TRYVEX</p>
+
+      <!-- Form -->
+      <form class="login-form" id="loginForm" novalidate>
+
+        <div class="login-form__field">
+          <input
+            class="login-form__input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          >
+          <span class="login-form__icon">✉</span>
+        </div>
+
+        <div class="login-form__field">
+          <input
+            class="login-form__input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Пароль"
+            autocomplete="current-password"
+            required
+          >
+          <span class="login-form__icon" id="togglePassword" title="Показать пароль">👁</span>
+        </div>
+
+        <button type="submit" class="login-form__btn-primary">Войти</button>
+
+        <button type="button" class="login-form__btn-guest" id="guestBtn">
+          Продолжить без авторизации
+        </button>
+
+        <div class="login-form__links">
+          <a href="forgot.html"   class="login-form__link">Забыли пароль?</a>
+          <span class="login-form__dot">·</span>
+          <a href="register.html" class="login-form__link">Регистрация</a>
+        </div>
+
+      </form>
+
+      <!-- Bottom: язык + закрыть -->
+      <div class="login-card__bottom">
+        <div class="login-card__lang">
+          <span class="login-card__lang-icon">🌐</span>
+          <button class="login-card__lang-btn login-card__lang-btn--active" data-lang="ru">RU</button>
+          <button class="login-card__lang-btn login-card__lang-btn--inactive" data-lang="en">EN</button>
+        </div>
+        <a href="../index.html" class="login-card__close" title="На главную">✕</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    // Liquidity lines — горизонтальные линии data feed
+    const container = document.getElementById('loginLines');
+    for (let i = 0; i < 14; i++) {
+      const line = document.createElement('div');
+      line.className = 'login-page__line';
+      line.style.cssText = `
+        top: ${(i / 14 * 100).toFixed(1)}%;
+        animation-duration: ${(18 + Math.random() * 20).toFixed(1)}s;
+        animation-delay: -${(Math.random() * 20).toFixed(1)}s;
+        opacity: ${(0.3 + Math.random() * 0.7).toFixed(2)};
+      `;
+      container.appendChild(line);
+    }
+
+    // Показать/скрыть пароль
+    document.getElementById('togglePassword').addEventListener('click', () => {
+      const input = document.getElementById('password');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+
+    // Переключение языка
+    document.querySelectorAll('.login-card__lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.login-card__lang-btn').forEach(b => {
+          b.className = 'login-card__lang-btn login-card__lang-btn--inactive';
+        });
+        btn.className = 'login-card__lang-btn login-card__lang-btn--active';
+      });
+    });
+
+    // Гость → главная
+    document.getElementById('guestBtn').addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
+
+    // Submit — заглушка (при переносе на бэкенд заменится на fetch/API)
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) return;
+      // TODO: fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) })
+      alert('Авторизация будет доступна после подключения бэкенда');
+    });
+  </script>
+
+  <style>
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--op, 0.2); }
+      50%       { opacity: calc(var(--op, 0.2) * 0.2); }
+    }
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(0,212,255,0.4), inset 0 0 15px rgba(0,212,255,0.06); }
+      50%       { box-shadow: 0 0 55px rgba(0,212,255,0.6), inset 0 0 25px rgba(0,212,255,0.1); }
+    }
+  </style>
+
+</body>
+</html>

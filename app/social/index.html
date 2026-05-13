@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Соцсеть трейдеров — TRYVEX</title>
+  <link rel="icon" type="image/png" href="../../assets/icons/favicon.png">
+
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/nav.css">
+  <link rel="stylesheet" href="assets/social.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="../../index.html" class="nav__logo">
+        <img class="nav__logo-svg" src="../../assets/images/icon.png" alt="TRYVEX">
+        <span class="nav__logo-text">TRYVEX</span>
+      </a>
+      <nav class="nav__links" id="navLinks">
+        <a href="../../index.html#features" class="nav__link">Возможности</a>
+        <a href="index.html"                class="nav__link nav__link--active">Соцсеть</a>
+        <a href="../../index.html#pricing"  class="nav__link">Тарифы</a>
+        <a href="../../index.html#download" class="nav__link">Скачать</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="../../pages/login.html" class="btn btn-outline btn--sm">Войти</a>
+        <a href="../../index.html#download" class="btn btn-primary btn--sm">Скачать</a>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="social-layout">
+
+    <!-- Left sidebar -->
+    <aside class="social-sidebar">
+      <div class="social-sidebar__section">
+        <p class="social-sidebar__title">Лента</p>
+        <ul class="social-sidebar__menu">
+          <li><a href="#" class="social-sidebar__link social-sidebar__link--active">🏠 Главная</a></li>
+          <li><a href="#" class="social-sidebar__link">🔥 Популярное</a></li>
+          <li><a href="#" class="social-sidebar__link">👤 Мой профиль</a></li>
+          <li><a href="#" class="social-sidebar__link">🔔 Уведомления</a></li>
+          <li><a href="#" class="social-sidebar__link">💬 Сообщения</a></li>
+        </ul>
+      </div>
+      <div class="social-sidebar__section">
+        <p class="social-sidebar__title">Инструменты</p>
+        <ul class="social-sidebar__menu">
+          <li><a href="#" class="social-sidebar__link">📊 Мои сделки</a></li>
+          <li><a href="#" class="social-sidebar__link">🤖 Мои роботы</a></li>
+          <li><a href="#" class="social-sidebar__link">🎓 Обучение</a></li>
+        </ul>
+      </div>
+      <div class="social-sidebar__cta">
+        <p>Откройте десктоп-приложение для полного доступа</p>
+        <a href="../../index.html#download" class="btn btn-primary" style="font-size:var(--size-xs); padding: 0.5rem 1rem;">Скачать TRYVEX</a>
+      </div>
+    </aside>
+
+    <!-- Feed -->
+    <main class="social-feed">
+
+      <!-- Create post (заглушка — активна после логина) -->
+      <div class="post-composer">
+        <div class="post-composer__avatar">T</div>
+        <div class="post-composer__input" role="button" onclick="window.location.href='../../pages/login.html'">
+          Поделитесь сделкой или идеей...
+        </div>
+      </div>
+
+      <!-- Posts -->
+      <article class="post-card">
+        <div class="post-card__header">
+          <div class="post-card__avatar">А</div>
+          <div class="post-card__meta">
+            <span class="post-card__name">AlexTrader</span>
+            <span class="post-card__time">2 часа назад</span>
+          </div>
+          <div class="post-card__instrument">BTC/USDT</div>
+        </div>
+        <p class="post-card__text">
+          Закрыл лонг по BTC на 81 200. Вход был по 79 400, держал 3 часа.
+          EMA20 пересекла EMA50 снизу вверх — классический сигнал. +2,3% к депозиту 🔥
+        </p>
+        <div class="post-card__trade">
+          <div class="post-card__trade-item post-card__trade-item--long">
+            <span>LONG</span>
+            <span>79 400 → 81 200</span>
+            <span class="post-card__trade-pnl">+1 800 USDT</span>
+          </div>
+        </div>
+        <div class="post-card__footer">
+          <button class="post-card__action">👍 124</button>
+          <button class="post-card__action">💬 18</button>
+          <button class="post-card__action">↗ Поделиться</button>
+        </div>
+      </article>
+
+      <article class="post-card">
+        <div class="post-card__header">
+          <div class="post-card__avatar" style="background: linear-gradient(135deg,#7c3aed,#5b21b6);">M</div>
+          <div class="post-card__meta">
+            <span class="post-card__name">MarketWizard</span>
+            <span class="post-card__time">5 часов назад</span>
+          </div>
+          <div class="post-card__instrument">ETH/USDT</div>
+        </div>
+        <p class="post-card__text">
+          Запустил нового робота на ETH. Стратегия пробоя уровней с трейлинг-стопом.
+          За неделю тестирования на истории — +14%. Сегодня первый день на реале.
+          Буду отчитываться здесь каждый день 📈
+        </p>
+        <div class="post-card__footer">
+          <button class="post-card__action">👍 87</button>
+          <button class="post-card__action">💬 31</button>
+          <button class="post-card__action">↗ Поделиться</button>
+        </div>
+      </article>
+
+      <article class="post-card">
+        <div class="post-card__header">
+          <div class="post-card__avatar" style="background: linear-gradient(135deg,#059669,#047857);">S</div>
+          <div class="post-card__meta">
+            <span class="post-card__name">ScalpKing</span>
+            <span class="post-card__time">вчера</span>
+          </div>
+          <div class="post-card__instrument">SBER</div>
+        </div>
+        <p class="post-card__text">
+          Скальп по Сберу сегодня. 47 сделок, 39 прибыльных.
+          Использую скальпинг-модуль TRYVEX — горячие клавиши делают всё намного быстрее.
+          Итог дня: +0,8% от депозита.
+        </p>
+        <div class="post-card__footer">
+          <button class="post-card__action">👍 203</button>
+          <button class="post-card__action">💬 44</button>
+          <button class="post-card__action">↗ Поделиться</button>
+        </div>
+      </article>
+
+      <div class="social-feed__more">
+        <a href="../../pages/login.html" class="btn btn-outline">Войдите чтобы видеть больше постов</a>
+      </div>
+
+    </main>
+
+    <!-- Right sidebar -->
+    <aside class="social-right">
+      <div class="social-right__section">
+        <p class="social-sidebar__title">Топ трейдеры</p>
+        <ul class="top-traders">
+          <li class="top-traders__item">
+            <div class="top-traders__avatar">A</div>
+            <div class="top-traders__info">
+              <span class="top-traders__name">AlexTrader</span>
+              <span class="top-traders__stat">+24.3% за месяц</span>
+            </div>
+            <button class="top-traders__follow">+</button>
+          </li>
+          <li class="top-traders__item">
+            <div class="top-traders__avatar" style="background:linear-gradient(135deg,#7c3aed,#5b21b6)">M</div>
+            <div class="top-traders__info">
+              <span class="top-traders__name">MarketWizard</span>
+              <span class="top-traders__stat">+18.7% за месяц</span>
+            </div>
+            <button class="top-traders__follow">+</button>
+          </li>
+          <li class="top-traders__item">
+            <div class="top-traders__avatar" style="background:linear-gradient(135deg,#059669,#047857)">S</div>
+            <div class="top-traders__info">
+              <span class="top-traders__name">ScalpKing</span>
+              <span class="top-traders__stat">+15.1% за месяц</span>
+            </div>
+            <button class="top-traders__follow">+</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="social-right__section">
+        <p class="social-sidebar__title">Тренды</p>
+        <ul class="trends">
+          <li class="trends__item"><span class="trends__tag">#BTC</span><span class="trends__count">1 240 постов</span></li>
+          <li class="trends__item"><span class="trends__tag">#алготрейдинг</span><span class="trends__count">438 постов</span></li>
+          <li class="trends__item"><span class="trends__tag">#скальпинг</span><span class="trends__count">312 постов</span></li>
+          <li class="trends__item"><span class="trends__tag">#ETH</span><span class="trends__count">289 постов</span></li>
+          <li class="trends__item"><span class="trends__tag">#SBER</span><span class="trends__count">201 постов</span></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <script type="module" src="../../js/nav.js"></script>
+  <script>
+    // Кнопки лайк/комментарий — заглушка, при переносе заменяется на API
+    document.querySelectorAll('.post-card__action').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.location.href = '../../pages/login.html';
+      });
+    });
+  </script>
+
+</body>
+</html>
