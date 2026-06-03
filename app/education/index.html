@@ -192,6 +192,20 @@
       border-left-color: var(--color-accent);
       background: var(--color-accent-glow);
     }
+    .edu-nav-item__soon {
+      display: inline-block;
+      font-size: 9px;
+      font-family: var(--font-primary);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--color-text-dim);
+      border: 1px solid var(--color-border);
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+      opacity: 0.7;
+    }
 
     /* ── Контент ── */
     .edu-content {
@@ -714,10 +728,11 @@
       return `
       <div class="edu-chapter">
         <div class="edu-chapter__title">${ch.title}</div>
-        ${articles.map(a => `
-          <button class="edu-nav-item ${a.id === currentArticleId ? 'edu-nav-item--active' : ''}"
-            onclick="openArticle('${ch.id}', '${a.id}')">${a.title}</button>
-        `).join('')}
+        ${articles.map(a => {
+          const isSoon = ch.id === 'tryvex' || ch.id === 'psychology';
+          return `<button class="edu-nav-item ${a.id === currentArticleId ? 'edu-nav-item--active' : ''}"
+            onclick="openArticle('${ch.id}', '${a.id}')">${a.title}${isSoon ? '<span class="edu-nav-item__soon">СКОРО</span>' : ''}</button>`;
+        }).join('')}
       </div>`;
     }).join('');
   }
