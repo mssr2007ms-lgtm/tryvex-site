@@ -596,7 +596,6 @@
         <div class="screeners-tabs">
           <button class="screeners-tab screeners-tab--active" data-tab="levels">
             Скринер уровней
-            <span class="screeners-tab__badge">LIVE</span>
           </button>
           <button class="screeners-tab" data-tab="spikes">
             Спайк-скринер
@@ -655,7 +654,7 @@
           <!-- Подпись под таблицей -->
           <div style="margin-top:var(--space-sm); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-sm);">
             <p style="font-size:var(--size-xs); color:var(--color-text-dim);">
-              Показаны топ-20 инструментов по объёму за 24ч. Полный скринер из 200+ инструментов доступен в десктопном приложении.
+              Показаны топ-15 инструментов по объёму за 24ч. Полный скринер из 200+ инструментов доступен в десктопном приложении.
             </p>
             <a href="../../index.html#download" class="btn btn-outline" style="font-size:var(--size-xs); padding:0.4rem 1rem;">Скачать терминал</a>
           </div>
@@ -1122,7 +1121,7 @@
           bigAsk: 0, bigAskRatio: 0,
         }))
         .sort((a, b) => b.volume - a.volume)
-        .slice(0, 20);
+        .slice(0, 15);
 
       showTable();
       setStatus(true, 'Bybit Futures · обновляется');
@@ -1149,7 +1148,7 @@
           bigAsk: 0, bigAskRatio: 0,
         }))
         .sort((a, b) => b.volume - a.volume)
-        .slice(0, 20);
+        .slice(0, 15);
 
       showTable();
       setStatus(true, 'Binance Spot · обновляется');
