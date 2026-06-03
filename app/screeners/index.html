@@ -595,16 +595,14 @@
         <!-- Табы -->
         <div class="screeners-tabs">
           <button class="screeners-tab screeners-tab--active" data-tab="levels">
-            📊 Скринер уровней
+            Скринер уровней
             <span class="screeners-tab__badge">LIVE</span>
           </button>
           <button class="screeners-tab" data-tab="spikes">
-            ⚡ Спайк-скринер
-            <span class="screeners-tab__badge screeners-tab__badge--soon">PRO</span>
+            Спайк-скринер
           </button>
           <button class="screeners-tab" data-tab="walls">
-            🧱 Скринер плит
-            <span class="screeners-tab__badge screeners-tab__badge--soon">PRO</span>
+            Скринер плит
           </button>
         </div>
       </div>
@@ -652,6 +650,14 @@
               </thead>
               <tbody id="screenerBody"></tbody>
             </table>
+          </div>
+
+          <!-- Подпись под таблицей -->
+          <div style="margin-top:var(--space-sm); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-sm);">
+            <p style="font-size:var(--size-xs); color:var(--color-text-dim);">
+              Показаны топ-20 инструментов по объёму за 24ч. Полный скринер из 200+ инструментов доступен в десктопном приложении.
+            </p>
+            <a href="../../index.html#download" class="btn btn-outline" style="font-size:var(--size-xs); padding:0.4rem 1rem;">Скачать терминал</a>
           </div>
 
           <!-- SEO описание -->
@@ -731,32 +737,26 @@
 
           <div class="showcase-features">
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">⚡</span>
               <div class="showcase-feature__title">Мгновенное обнаружение</div>
               <p class="showcase-feature__desc">Скринер обрабатывает тики с нескольких бирж одновременно и выдаёт сигнал в течение 1–2 секунд после начала аномального движения. Никаких задержек и пропущенных спайков.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">🎯</span>
               <div class="showcase-feature__title">Гибкие настройки</div>
               <p class="showcase-feature__desc">Выберите период измерения от 5 до 120 секунд и минимальный порог движения. Отфильтруйте инструменты по минимальному объёму — убрать «шум» из низколиквидных монет.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">🔔</span>
               <div class="showcase-feature__title">Звуковые алерты</div>
               <p class="showcase-feature__desc">При появлении нового спайка терминал воспроизводит звуковой сигнал — не нужно постоянно смотреть на экран. Отдельные звуки для роста и падения.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">📈</span>
               <div class="showcase-feature__title">История сигналов</div>
               <p class="showcase-feature__desc">Все обнаруженные спайки сохраняются в историю сессии с отметкой времени, ценой входа и пиковым значением движения. Анализируйте какие инструменты спайкуют чаще всего.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">🔗</span>
               <div class="showcase-feature__title">Интеграция со скальпингом</div>
               <p class="showcase-feature__desc">Один клик по спайку в скринере мгновенно открывает инструмент в скальпинг-модуле. Стакан и график уже загружены — остаётся только принять решение и войти в сделку.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">🌐</span>
               <div class="showcase-feature__title">Несколько бирж</div>
               <p class="showcase-feature__desc">Одновременный мониторинг Binance Spot и Bybit Futures. Иконка биржи рядом с каждым сигналом позволяет мгновенно понять откуда пришло движение.</p>
             </div>
@@ -838,32 +838,26 @@
 
           <div class="showcase-features">
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">🧱</span>
               <div class="showcase-feature__title">300+ инструментов</div>
               <p class="showcase-feature__desc">Скринер одновременно держит WebSocket-подключение к стаканам 300 топовых инструментов по объёму. Ни одна крупная плита не останется незамеченной — независимо от того на каком инструменте она появилась.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">📐</span>
               <div class="showcase-feature__title">Кратность к среднему</div>
               <p class="showcase-feature__desc">Каждая плита оценивается как кратность к среднему объёму по стакану инструмента. Плита ×15 на BTCUSDT и плита ×15 на случайном альткоине — одинаково значимые события, несмотря на разные абсолютные объёмы.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">💰</span>
               <div class="showcase-feature__title">Объём в USDT</div>
               <p class="showcase-feature__desc">Помимо кратности скринер показывает абсолютный объём плиты в долларах. Это помогает отфильтровать технически значимые но мелкие заявки на низколиквидных монетах от действительно крупного капитала.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">⚖️</span>
               <div class="showcase-feature__title">Bid и Ask раздельно</div>
               <p class="showcase-feature__desc">Скринер показывает плиты как со стороны покупателей (Bid — поддержка), так и со стороны продавцов (Ask — сопротивление). Зелёный — крупный покупатель держит уровень, красный — крупный продавец блокирует рост.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">🔄</span>
               <div class="showcase-feature__title">Обновление в реальном времени</div>
               <p class="showcase-feature__desc">Плиты в стакане могут появляться и исчезать за секунды. Скринер отслеживает изменения стакана через WebSocket и мгновенно обновляет список — вы всегда видите актуальную картину.</p>
             </div>
             <div class="showcase-feature">
-              <span class="showcase-feature__icon">📏</span>
               <div class="showcase-feature__title">Расстояние до цены</div>
               <p class="showcase-feature__desc">Для каждой плиты скринер показывает на каком расстоянии (в %) она находится от текущей цены. Это позволяет сразу оценить насколько далеко уровень и актуален ли он для торговли прямо сейчас.</p>
             </div>
@@ -1128,7 +1122,7 @@
           bigAsk: 0, bigAskRatio: 0,
         }))
         .sort((a, b) => b.volume - a.volume)
-        .slice(0, 200);
+        .slice(0, 20);
 
       showTable();
       setStatus(true, 'Bybit Futures · обновляется');
@@ -1155,7 +1149,7 @@
           bigAsk: 0, bigAskRatio: 0,
         }))
         .sort((a, b) => b.volume - a.volume)
-        .slice(0, 200);
+        .slice(0, 20);
 
       showTable();
       setStatus(true, 'Binance Spot · обновляется');
