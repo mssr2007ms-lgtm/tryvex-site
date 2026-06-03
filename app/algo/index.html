@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Алготрейдинг — торговые роботы и автоматические стратегии | TRYVEX</title>
+  <meta name="description" content="Алгоритмическая торговля в терминале TRYVEX: пишите роботов на C#, тестируйте на истории, запускайте в демо и реал. Нет навыков — закажите бота у нас. Реализуем любую торговую идею.">
+  <meta name="keywords" content="алготрейдинг, торговый робот, автоматическая торговля, бэктест, торговый бот криптовалюта, написать торгового робота, заказать торгового бота, алгоритмическая торговля bybit binance">
+  <link rel="icon" type="image/png" href="../../assets/icons/favicon.png">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/nav.css">
+  <style>
+
+    body { background: var(--color-bg); color: var(--color-text); }
+
+    .algo-page { padding-top: 64px; }
+
+    /* ── Hero ── */
+    .algo-hero {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .algo-hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(0,200,240,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .algo-hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+    @media (max-width: 768px) { .algo-hero__inner { grid-template-columns: 1fr; } }
+
+    .algo-hero__label {
+      display: inline-block;
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      letter-spacing: 0.18em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+    .algo-hero__title {
+      font-family: var(--font-primary);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      margin-bottom: var(--space-md);
+    }
+    .algo-hero__title span { color: var(--color-accent); }
+    .algo-hero__desc {
+      font-size: var(--size-base);
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      margin-bottom: var(--space-lg);
+      max-width: 520px;
+    }
+    .algo-hero__cta {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    /* Терминал-превью справа */
+    .algo-hero__terminal {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 0.6rem var(--space-sm);
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .terminal-bar__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .terminal-bar__dot--r { background: #c0392b; }
+    .terminal-bar__dot--y { background: #f39c12; }
+    .terminal-bar__dot--g { background: #2a9d6a; }
+    .terminal-bar__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      color: var(--color-text-dim);
+      letter-spacing: 0.1em;
+      margin-left: var(--space-xs);
+    }
+    .terminal-code {
+      padding: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .tc-comment { color: #4a5568; }
+    .tc-keyword { color: var(--color-accent); }
+    .tc-type    { color: #68d391; }
+    .tc-method  { color: #fbd38d; }
+    .tc-string  { color: #fc8181; }
+    .tc-number  { color: #b794f4; }
+    .tc-plain   { color: var(--color-text-dim); }
+
+    /* ── Статы ── */
+    .algo-stats {
+      padding: var(--space-lg) 0;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg-card);
+    }
+    .algo-stats__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2xl);
+      flex-wrap: wrap;
+    }
+    .algo-stat {
+      text-align: center;
+    }
+    .algo-stat__value {
+      font-family: var(--font-primary);
+      font-size: var(--size-2xl);
+      font-weight: 700;
+      color: var(--color-accent);
+      letter-spacing: 0.06em;
+    }
+    .algo-stat__label {
+      font-size: var(--size-xs);
+      color: var(--color-text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .algo-stat__divider {
+      width: 1px;
+      height: 40px;
+      background: var(--color-border);
+    }
+
+    /* ── Секции ── */
+    .algo-section {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .algo-section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      letter-spacing: 0.18em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    /* ── Как это работает — шаги ── */
+    .algo-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      margin-top: var(--space-xl);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .algo-step {
+      padding: var(--space-lg) var(--space-md);
+      background: var(--color-bg-card);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+    }
+    .algo-step:last-child { border-right: none; }
+    .algo-step__num {
+      font-family: var(--font-primary);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(0,200,240,0.12);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+    .algo-step__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-sm);
+      font-weight: 600;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-xs);
+    }
+    .algo-step__desc {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.65;
+    }
+    .algo-step__arrow {
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--color-accent);
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .algo-steps { grid-template-columns: 1fr; }
+      .algo-step { border-right: none; border-bottom: 1px solid var(--color-border); }
+      .algo-step:last-child { border-bottom: none; }
+      .algo-step__arrow { display: none; }
+    }
+
+    /* ── Возможности — карточки ── */
+    .algo-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .algo-feature {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-md);
+      transition: var(--transition);
+    }
+    .algo-feature:hover {
+      border-color: var(--color-border-hover);
+    }
+    .algo-feature__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-sm);
+      font-weight: 600;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-xs);
+      padding-bottom: var(--space-xs);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .algo-feature__desc {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.7;
+      margin-top: var(--space-xs);
+    }
+
+    /* ── Для кого — две колонки ── */
+    .algo-audience {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    @media (max-width: 768px) { .algo-audience { grid-template-columns: 1fr; } }
+
+    .audience-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+    .audience-card--accent {
+      border-color: rgba(0,200,240,0.3);
+      background: linear-gradient(135deg, rgba(0,200,240,0.05), var(--color-bg-card));
+    }
+    .audience-card__tag {
+      display: inline-block;
+      font-family: var(--font-primary);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      border: 1px solid rgba(0,200,240,0.3);
+      border-radius: 3px;
+      padding: 2px 8px;
+      margin-bottom: var(--space-sm);
+    }
+    .audience-card__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-lg);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-sm);
+      line-height: 1.3;
+    }
+    .audience-card__title span { color: var(--color-accent); }
+    .audience-card__desc {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.75;
+      margin-bottom: var(--space-md);
+    }
+    .audience-card__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+    }
+    .audience-card__list li {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .audience-card__list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+    }
+
+    /* ── Заказать бота ── */
+    .order-section {
+      background: linear-gradient(135deg, rgba(0,200,240,0.06), rgba(0,153,187,0.03));
+      border-top: 1px solid rgba(0,200,240,0.2);
+      border-bottom: 1px solid rgba(0,200,240,0.2);
+      padding: var(--space-2xl) 0;
+    }
+    .order-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+    @media (max-width: 768px) { .order-inner { grid-template-columns: 1fr; } }
+
+    .order-text h2 {
+      font-family: var(--font-primary);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-sm);
+      line-height: 1.2;
+    }
+    .order-text h2 span { color: var(--color-accent); }
+    .order-text p {
+      font-size: var(--size-base);
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      margin-bottom: var(--space-sm);
+    }
+    .order-text .order-cta {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+    }
+
+    .order-steps {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .order-step {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: flex-start;
+      padding: var(--space-sm) var(--space-md);
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+    }
+    .order-step__num {
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      font-weight: 700;
+      color: var(--color-accent);
+      letter-spacing: 0.1em;
+      min-width: 24px;
+      margin-top: 2px;
+    }
+    .order-step__text {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.6;
+    }
+    .order-step__text strong {
+      color: var(--color-silver);
+      display: block;
+      margin-bottom: 2px;
+      font-size: var(--size-xs);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Почему выгодно ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .why-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-md);
+    }
+    .why-card__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-sm);
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-xs);
+    }
+    .why-card__desc {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.7;
+    }
+
+    /* ── SEO текст ── */
+    .seo-section {
+      padding: var(--space-2xl) 0;
+    }
+    .seo-section h2 {
+      font-family: var(--font-primary);
+      font-size: var(--size-xl);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-md);
+    }
+    .seo-section h2 span { color: var(--color-accent); }
+    .seo-section h3 {
+      font-family: var(--font-primary);
+      font-size: var(--size-base);
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.06em;
+      margin: var(--space-md) 0 var(--space-xs);
+    }
+    .seo-section p {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.85;
+      max-width: 860px;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* ── CTA финальный ── */
+    .algo-final-cta {
+      padding: var(--space-2xl) 0;
+      text-align: center;
+    }
+    .algo-final-cta h2 {
+      font-family: var(--font-primary);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-sm);
+    }
+    .algo-final-cta h2 span { color: var(--color-accent); }
+    .algo-final-cta p {
+      font-size: var(--size-base);
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-lg);
+      line-height: 1.7;
+    }
+    .algo-final-cta__btns {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="../../index.html" class="nav__logo">
+        <img class="nav__logo-svg" src="../../assets/images/icon.png" alt="TRYVEX">
+        <span class="nav__logo-text">TRYVEX</span>
+      </a>
+      <nav class="nav__links" id="navLinks">
+        <a href="../../index.html#features"  class="nav__link">Возможности</a>
+        <a href="index.html"                 class="nav__link nav__link--active">Алго</a>
+        <a href="../../index.html#education" class="nav__link">Обучение</a>
+        <a href="../social/index.html"       class="nav__link">Соцсеть</a>
+        <a href="../screeners/index.html"    class="nav__link">Скринеры</a>
+        <a href="../../index.html#pricing"   class="nav__link">Тарифы</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="../../pages/login.html"    class="btn btn-outline btn--sm">Войти</a>
+        <a href="../../index.html#download" class="btn btn-primary btn--sm">Скачать</a>
+      </div>
+      <button class="nav__burger" id="navBurger"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="algo-page">
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="algo-hero">
+      <div class="container">
+        <div class="algo-hero__inner">
+
+          <div class="algo-hero__text">
+            <span class="algo-hero__label">TRYVEX · АЛГОТРЕЙДИНГ</span>
+            <h1 class="algo-hero__title">
+              Торговые роботы.<br>
+              <span>Ваши правила — рынок работает за вас.</span>
+            </h1>
+            <p class="algo-hero__desc">
+              Создавайте автоматические торговые стратегии, тестируйте их на исторических данных, проверяйте в демо-режиме на реальных котировках и запускайте в живую торговлю — всё в одном терминале. Нет навыков программирования? Мы напишем бота за вас.
+            </p>
+            <div class="algo-hero__cta">
+              <a href="../../index.html#download" class="btn btn-primary">Скачать терминал</a>
+              <a href="#order" class="btn btn-outline">Заказать бота</a>
+            </div>
+          </div>
+
+          <div class="algo-hero__terminal">
+            <div class="terminal-bar">
+              <div class="terminal-bar__dot terminal-bar__dot--r"></div>
+              <div class="terminal-bar__dot terminal-bar__dot--y"></div>
+              <div class="terminal-bar__dot terminal-bar__dot--g"></div>
+              <span class="terminal-bar__title">TRYVEX · ROBOT EDITOR</span>
+            </div>
+            <div class="terminal-code">
+              <div><span class="tc-comment">// Стратегия пробоя EMA с трейлинг-стопом</span></div>
+              <div><span class="tc-keyword">public override void </span><span class="tc-method">Execute</span><span class="tc-plain">()</span></div>
+              <div><span class="tc-plain">{</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;</span><span class="tc-keyword">for </span><span class="tc-plain">(var bar = IndexBar; bar &lt; CandleCount; bar++)</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;{</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tc-keyword">if </span><span class="tc-plain">(LongPos.Count == </span><span class="tc-number">0</span><span class="tc-plain">)</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;&nbsp;&nbsp;{</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tc-keyword">if </span><span class="tc-plain">(CrossOver(ema20, ema50, bar))</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tc-method">BuyAtMarket</span><span class="tc-plain">(bar + </span><span class="tc-number">1</span><span class="tc-plain">, </span><span class="tc-string">"Сигнал EMA"</span><span class="tc-plain">);</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tc-method">SendStandartStopFromForm</span><span class="tc-plain">(bar + </span><span class="tc-number">1</span><span class="tc-plain">, </span><span class="tc-string">""</span><span class="tc-plain">);</span></div>
+              <div><span class="tc-plain">&nbsp;&nbsp;}</span></div>
+              <div><span class="tc-plain">}</span></div>
+              <div style="margin-top:8px"><span class="tc-comment">// P&L: +14.3% · Сделок: 47 · Просадка: 3.1%</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ СТАТЫ ═══════════════ -->
+    <div class="algo-stats">
+      <div class="container algo-stats__inner">
+        <div class="algo-stat">
+          <div class="algo-stat__value">99+</div>
+          <div class="algo-stat__label">Готовых стратегий</div>
+        </div>
+        <div class="algo-stat__divider"></div>
+        <div class="algo-stat">
+          <div class="algo-stat__value">C#</div>
+          <div class="algo-stat__label">Язык роботов</div>
+        </div>
+        <div class="algo-stat__divider"></div>
+        <div class="algo-stat">
+          <div class="algo-stat__value">50+</div>
+          <div class="algo-stat__label">Бирж и брокеров</div>
+        </div>
+        <div class="algo-stat__divider"></div>
+        <div class="algo-stat">
+          <div class="algo-stat__value">Демо</div>
+          <div class="algo-stat__label">Режим без риска</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- ═══════════════ КАК ЭТО РАБОТАЕТ ═══════════════ -->
+      <section class="algo-section">
+        <span class="section-label">ПРОЦЕСС</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:0;">От идеи до <span>прибыли</span></h2>
+
+        <div class="algo-steps">
+          <div class="algo-step">
+            <div class="algo-step__num">01</div>
+            <div class="algo-step__title">Создайте стратегию</div>
+            <p class="algo-step__desc">Напишите робота на C# во встроенном редакторе терминала или выберите готовую стратегию из библиотеки. Можно также воспользоваться визуальным конструктором — без единой строки кода.</p>
+            <div class="algo-step__arrow">›</div>
+          </div>
+          <div class="algo-step">
+            <div class="algo-step__num">02</div>
+            <div class="algo-step__title">Проверьте на истории</div>
+            <p class="algo-step__desc">Запустите бэктест на реальных исторических данных биржи. Смотрите статистику: доходность, просадку, количество сделок, процент прибыльных. Оптимизируйте параметры автоматически.</p>
+            <div class="algo-step__arrow">›</div>
+          </div>
+          <div class="algo-step">
+            <div class="algo-step__num">03</div>
+            <div class="algo-step__title">Запустите в демо</div>
+            <p class="algo-step__desc">Протестируйте робота в демо-режиме: реальные котировки с биржи, виртуальный баланс. Вы видите как стратегия работает в живых рыночных условиях — без риска потерять деньги.</p>
+            <div class="algo-step__arrow">›</div>
+          </div>
+          <div class="algo-step">
+            <div class="algo-step__num">04</div>
+            <div class="algo-step__title">Запустите в реал</div>
+            <p class="algo-step__desc">Когда уверены в стратегии — переключаете на реальный аккаунт. Робот работает 24/7 пока открыт терминал: открывает и закрывает позиции, управляет рисками, ведёт статистику.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ ВОЗМОЖНОСТИ ═══════════════ -->
+      <section class="algo-section">
+        <span class="section-label">ВОЗМОЖНОСТИ</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:0;">Всё для <span>алготрейдера</span></h2>
+
+        <div class="algo-features">
+          <div class="algo-feature">
+            <div class="algo-feature__title">Торговые роботы на C#</div>
+            <p class="algo-feature__desc">Полноценный язык программирования со всеми возможностями: индикаторы, условия входа и выхода, управление позицией, риск-менеджмент. Встроенный редактор с подсветкой синтаксиса прямо в терминале.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Бэктест на исторических данных</div>
+            <p class="algo-feature__desc">Проверьте стратегию на реальных данных биржи за любой период. Детальная статистика: кривая доходности, максимальная просадка, коэффициент Шарпа, список всех сделок.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Оптимизация параметров</div>
+            <p class="algo-feature__desc">Автоматический перебор параметров стратегии для нахождения оптимальных значений. Задайте диапазон и шаг — терминал сам найдёт лучшую комбинацию.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Демо-режим на реальных котировках</div>
+            <p class="algo-feature__desc">Запустите робота на реальных ценах с биржи при виртуальном балансе. Никакого риска — полная имитация реальной торговли. Идеально для финальной проверки перед запуском.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Библиотека готовых стратегий</div>
+            <p class="algo-feature__desc">Более 99 проверенных торговых стратегий: трендовые, сеточные, арбитражные, скальперские. Каждую можно запустить сразу или использовать как основу для своей.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Конструктор без кода</div>
+            <p class="algo-feature__desc">Визуальный конструктор стратегий — создайте робота мышью без программирования. Выберите сигнал входа, условие выхода, правила управления позицией — и стратегия готова.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Мультибиржевые стратегии</div>
+            <p class="algo-feature__desc">Одновременная работа на нескольких биржах и инструментах. Арбитражные роботы, которые ловят разницу цен между биржами — доступны при наличии API-ключей нескольких аккаунтов.</p>
+          </div>
+          <div class="algo-feature">
+            <div class="algo-feature__title">Управление несколькими роботами</div>
+            <p class="algo-feature__desc">Запускайте несколько стратегий одновременно на разных инструментах. Общая таблица роботов: П/У по каждому, количество сделок, статус, дата последней сделки — всё в одном месте.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ ПОЧЕМУ ВЫГОДНО ═══════════════ -->
+      <section class="algo-section">
+        <span class="section-label">ПРЕИМУЩЕСТВА</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:0;">Почему алготрейдинг <span>выгоднее</span> ручной торговли</h2>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-card__title">Работает 24/7 без вас</div>
+            <p class="why-card__desc">Криптовалютный рынок не закрывается никогда. Робот торгует пока вы спите, работаете или отдыхаете — ни одна точка входа не будет пропущена из-за того что вас нет за экраном.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card__title">Нет эмоций — нет ошибок</div>
+            <p class="why-card__desc">Страх, жадность, надежда — главные враги трейдера. Робот всегда следует правилам стратегии: не передерживает убыточные позиции, не закрывает прибыльные раньше времени, не мстит рынку.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card__title">Мгновенное исполнение</div>
+            <p class="why-card__desc">Робот реагирует на сигнал за миллисекунды. Человек пока увидит сигнал, примет решение и нажмёт кнопку — цена уже ушла. Особенно критично при скальпинге и арбитраже.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card__title">Диверсификация без усилий</div>
+            <p class="why-card__desc">Запустите несколько роботов на разных инструментах одновременно. Одна стратегия торгует BTC, другая — ETH, третья ищет арбитраж. Ручное управление таким портфелем физически невозможно.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card__title">Проверка перед риском</div>
+            <p class="why-card__desc">Бэктест и демо-режим позволяют увидеть реальный результат стратегии до того как вы вложите деньги. Это принципиально отличает алготрейдинг от ручной торговли «на ощущениях».</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card__title">Строгий риск-менеджмент</div>
+            <p class="why-card__desc">Стоп-лосс, тейк-профит, трейлинг-стоп, максимальная дневная просадка — всё прописано в коде и исполняется без исключений. Робот никогда не скажет «ещё чуть-чуть подожду».</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ ДЛЯ КОГО ═══════════════ -->
+      <section class="algo-section">
+        <span class="section-label">ДЛЯ КОГО</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:0;">Алготрейдинг <span>для каждого</span></h2>
+
+        <div class="algo-audience">
+          <div class="audience-card">
+            <span class="audience-card__tag">ЕСТЬ НАВЫКИ ПРОГРАММИРОВАНИЯ</span>
+            <h3 class="audience-card__title">Пишите роботов<br>на <span>C#</span></h3>
+            <p class="audience-card__desc">
+              Полноценная среда разработки прямо в терминале. Если вы знаете C# или хотя бы базовые основы программирования — вы можете реализовать любую торговую идею самостоятельно.
+            </p>
+            <ul class="audience-card__list">
+              <li>Встроенный редактор с подсветкой синтаксиса</li>
+              <li>Готовое API для работы с ценами, индикаторами, ордерами</li>
+              <li>Примеры кода и документация внутри терминала</li>
+              <li>Запуск бэктеста в один клик прямо из редактора</li>
+              <li>Библиотека из 99+ открытых стратегий для изучения</li>
+            </ul>
+            <a href="../../index.html#download" class="btn btn-primary">Скачать и начать</a>
+          </div>
+
+          <div class="audience-card audience-card--accent">
+            <span class="audience-card__tag">НЕТ НАВЫКОВ ПРОГРАММИРОВАНИЯ</span>
+            <h3 class="audience-card__title">Закажите бота —<br><span>мы реализуем вашу идею</span></h3>
+            <p class="audience-card__desc">
+              Есть торговая стратегия но нет времени или желания разбираться в коде? Опишите нам свою идею — мы напишем робота под ваши требования. Любая логика входа, управления позицией и выхода.
+            </p>
+            <ul class="audience-card__list">
+              <li>Вы описываете стратегию — мы реализуем</li>
+              <li>Любая сложность: от простого до арбитражного</li>
+              <li>Тестирование и настройка параметров включены</li>
+              <li>Бот запускается прямо в вашем терминале TRYVEX</li>
+              <li>Поддержка и доработки после сдачи</li>
+            </ul>
+            <a href="#order" class="btn btn-primary">Заказать бота</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══════════════ ЗАКАЗАТЬ БОТА ═══════════════ -->
+    <section class="order-section" id="order">
+      <div class="container">
+        <div class="order-inner">
+
+          <div class="order-text">
+            <span class="section-label">РАЗРАБОТКА ПОД ЗАКАЗ</span>
+            <h2>Расскажите нам вашу идею —<br><span>мы напишем робота</span></h2>
+            <p>
+              Не нужно знать программирование. Не нужно разбираться в API биржи. Достаточно понимать что и как должна делать ваша стратегия — всё остальное берём на себя.
+            </p>
+            <p>
+              Мы разрабатываем торговых роботов любой сложности: от простых стратегий с одним индикатором до многоинструментальных арбитражных систем. Каждый бот тестируется на исторических данных и сдаётся с подробной документацией.
+            </p>
+            <div class="order-cta">
+              <a href="https://t.me/tryvex" class="btn btn-primary">Написать в Telegram</a>
+              <a href="mailto:hello@tryvex.io" class="btn btn-outline">Написать на почту</a>
+            </div>
+          </div>
+
+          <div class="order-steps">
+            <div class="order-step">
+              <span class="order-step__num">01</span>
+              <div class="order-step__text">
+                <strong>Вы описываете стратегию</strong>
+                Расскажите как работает ваша идея: условие входа, условие выхода, правила управления позицией. Голосом, текстом, схемой — любым удобным способом.
+              </div>
+            </div>
+            <div class="order-step">
+              <span class="order-step__num">02</span>
+              <div class="order-step__text">
+                <strong>Мы уточняем детали и называем стоимость</strong>
+                Обсуждаем детали, оцениваем сложность и согласовываем сроки. Простые стратегии готовы за 1–3 дня.
+              </div>
+            </div>
+            <div class="order-step">
+              <span class="order-step__num">03</span>
+              <div class="order-step__text">
+                <strong>Разрабатываем и тестируем</strong>
+                Пишем робота, прогоняем бэктест, настраиваем параметры. Показываем результаты до сдачи.
+              </div>
+            </div>
+            <div class="order-step">
+              <span class="order-step__num">04</span>
+              <div class="order-step__text">
+                <strong>Вы получаете готового бота</strong>
+                Устанавливаем в ваш терминал TRYVEX, объясняем как пользоваться. Поддержка и доработки включены.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- ═══════════════ SEO ТЕКСТ ═══════════════ -->
+      <section class="seo-section">
+        <h2>Что такое <span>алготрейдинг</span> и зачем он нужен?</h2>
+
+        <p>
+          Алготрейдинг (алгоритмическая торговля) — это автоматическое исполнение торговых операций по заранее заданным правилам, реализованным в виде программного кода. Вместо того чтобы вручную следить за графиками и нажимать кнопки, трейдер один раз описывает логику своей стратегии — и дальше всё делает программа.
+        </p>
+        <p>
+          Алготрейдинг давно перестал быть инструментом только крупных хедж-фондов и банков. Сегодня любой трейдер может написать собственного робота или воспользоваться готовой стратегией — именно для этого создан TRYVEX.
+        </p>
+
+        <h3>ВИДЫ ТОРГОВЫХ СТРАТЕГИЙ ДЛЯ РОБОТОВ</h3>
+        <p>
+          <strong style="color:var(--color-silver)">Трендовые стратегии</strong> — робот определяет направление тренда по индикаторам (EMA, MACD, RSI) и открывает позицию в его направлении. Один из самых распространённых и понятных подходов.
+        </p>
+        <p>
+          <strong style="color:var(--color-silver)">Сеточные стратегии</strong> — робот выставляет сетку ордеров на покупку и продажу через равные ценовые интервалы. Прибыльны при боковом движении рынка, не требуют предсказания направления.
+        </p>
+        <p>
+          <strong style="color:var(--color-silver)">Арбитражные стратегии</strong> — робот одновременно торгует одним инструментом на разных биржах или связанными инструментами, зарабатывая на разнице цен. Требует быстрого исполнения — именно здесь важна скорость терминала.
+        </p>
+        <p>
+          <strong style="color:var(--color-silver)">Мартингейл и антимартингейл</strong> — управление объёмом позиции в зависимости от серии выигрышей или проигрышей. Применяется как самостоятельная стратегия или как дополнение к другим.
+        </p>
+        <p>
+          <strong style="color:var(--color-silver)">Пробойные стратегии</strong> — вход при пробое уровня поддержки или сопротивления, максимума или минимума предыдущей свечи. Хорошо работают при высокой волатильности и выходе новостей.
+        </p>
+
+        <h3>АЛГОТРЕЙДИНГ В TRYVEX — ТЕХНИЧЕСКИЕ ДЕТАЛИ</h3>
+        <p>
+          Роботы в TRYVEX написаны на языке C# и работают в среде .NET. Каждый робот наследует базовый класс <code style="font-family:var(--font-mono);color:var(--color-accent);font-size:12px">Script</code> и переопределяет метод <code style="font-family:var(--font-mono);color:var(--color-accent);font-size:12px">Execute()</code> — именно здесь описывается вся логика стратегии.
+        </p>
+        <p>
+          В вашем распоряжении: полный доступ к историческим ценам и объёмам, встроенные индикаторы (EMA, SMA, RSI, MACD, Bollinger Bands и десятки других), методы для открытия и закрытия позиций, управление стоп-лоссом и тейк-профитом, доступ к стакану ордеров в реальном времени.
+        </p>
+        <p>
+          Для тех кто не хочет писать код — визуальный конструктор стратегий позволяет собрать робота из готовых блоков: выбрать сигнал входа из списка, указать параметры, задать правила выхода — и запустить без единой строки программного кода.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- ═══════════════ ФИНАЛЬНЫЙ CTA ═══════════════ -->
+    <div style="border-top: 1px solid var(--color-border);">
+      <div class="container">
+        <div class="algo-final-cta">
+          <h2>Начните автоматизировать<br><span>вашу торговлю сегодня</span></h2>
+          <p>Скачайте TRYVEX бесплатно — алготрейдинг доступен в тарифе Pro.<br>Нет стратегии? Мы напишем робота под вашу идею.</p>
+          <div class="algo-final-cta__btns">
+            <a href="../../index.html#download" class="btn btn-primary">Скачать терминал бесплатно</a>
+            <a href="#order" class="btn btn-outline">Заказать бота</a>
+            <a href="../../index.html#pricing" class="btn btn-outline">Тарифы</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="../../js/nav.js"></script>
+</body>
+</html>
