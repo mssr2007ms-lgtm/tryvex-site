@@ -123,12 +123,13 @@
       background: var(--color-bg-card);
     }
     .algo-stats__inner {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
       align-items: center;
-      justify-content: center;
-      gap: var(--space-2xl);
-      flex-wrap: wrap;
+      text-align: center;
     }
+    @media (max-width: 900px) { .algo-stats__inner { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); } }
+    @media (max-width: 480px) { .algo-stats__inner { grid-template-columns: repeat(2, 1fr); } }
     .algo-stat {
       text-align: center;
     }
@@ -660,20 +661,25 @@
           <div class="algo-stat__value">99+</div>
           <div class="algo-stat__label">Готовых стратегий</div>
         </div>
-        <div class="algo-stat__divider"></div>
         <div class="algo-stat">
           <div class="algo-stat__value">C#</div>
           <div class="algo-stat__label">Язык роботов</div>
         </div>
-        <div class="algo-stat__divider"></div>
         <div class="algo-stat">
           <div class="algo-stat__value">50+</div>
           <div class="algo-stat__label">Бирж и брокеров</div>
         </div>
-        <div class="algo-stat__divider"></div>
         <div class="algo-stat">
           <div class="algo-stat__value">Демо</div>
           <div class="algo-stat__label">Режим без риска</div>
+        </div>
+        <div class="algo-stat">
+          <div class="algo-stat__value">&lt;1мс</div>
+          <div class="algo-stat__label">Скорость исполнения</div>
+        </div>
+        <div class="algo-stat">
+          <div class="algo-stat__value">24/7</div>
+          <div class="algo-stat__label">Работа без остановок</div>
         </div>
       </div>
     </div>
@@ -863,8 +869,18 @@
                   <input class="order-form__input" type="text" name="name" placeholder="Ваше имя" required>
                 </div>
                 <div class="order-form__field">
-                  <label class="order-form__label">Контакт</label>
-                  <input class="order-form__input" type="text" name="contact" placeholder="Telegram или email" required>
+                  <label class="order-form__label">Телефон</label>
+                  <input class="order-form__input" type="tel" name="phone" placeholder="+7 999 000-00-00" required>
+                </div>
+              </div>
+              <div class="order-form__row">
+                <div class="order-form__field">
+                  <label class="order-form__label">Telegram или email</label>
+                  <input class="order-form__input" type="text" name="contact" placeholder="@username или email" required>
+                </div>
+                <div class="order-form__field">
+                  <label class="order-form__label">Удобное время для связи</label>
+                  <input class="order-form__input" type="text" name="time" placeholder="Например: с 10 до 19">
                 </div>
               </div>
               <div class="order-form__field">
@@ -1023,7 +1039,9 @@
 
       await sendToCrm({
         name:      data.name,
+        phone:     data.phone || undefined,
         contact:   data.contact,
+        time:      data.time || undefined,
         form_type: 'algo_order',
         services:  types[data.type] || data.type,
         message:   data.idea,
