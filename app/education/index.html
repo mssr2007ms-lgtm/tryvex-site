@@ -72,13 +72,11 @@
 
     /* ── Поиск ── */
     .edu-search-wrap {
-      padding: var(--space-md) 0;
-      border-bottom: 1px solid var(--color-border);
+      display: none; /* убран отдельный блок */
     }
     .edu-search {
       position: relative;
-      max-width: 520px;
-      margin: 0 auto;
+      width: 100%;
     }
     .edu-search__input {
       width: 100%;
@@ -119,12 +117,26 @@
     /* ── Сайдбар ── */
     .edu-sidebar {
       border-right: 1px solid var(--color-border);
-      padding: var(--space-lg) 0;
+      padding: 0;
       position: sticky;
       top: 64px;
       height: calc(100vh - 64px);
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
+    .edu-sidebar__search {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+    .edu-sidebar__nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-sm) 0;
+    }
+    .edu-sidebar__nav::-webkit-scrollbar { width: 4px; }
+    .edu-sidebar__nav::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
     @media (max-width: 900px) {
       .edu-sidebar {
         position: static;
@@ -323,21 +335,26 @@
     }
 
     /* Поиск — результаты */
-    .search-results { display: none; }
+    .search-results {
+      display: none;
+      border-top: 1px solid var(--color-border);
+      margin-top: var(--space-xs);
+    }
     .search-result-item {
-      padding: var(--space-sm) var(--space-md);
+      padding: 0.45rem var(--space-md);
       cursor: pointer;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       transition: var(--transition);
     }
     .search-result-item:hover { background: rgba(255,255,255,0.03); }
     .search-result-item__title {
-      font-size: var(--size-sm);
+      font-size: var(--size-xs);
       color: var(--color-silver);
       font-weight: 500;
+      line-height: 1.4;
     }
     .search-result-item__chapter {
-      font-size: var(--size-xs);
+      font-size: 10px;
       color: var(--color-text-dim);
       margin-top: 2px;
     }
@@ -396,22 +413,20 @@
       </div>
     </div>
 
-    <!-- Поиск -->
-    <div class="edu-search-wrap">
-      <div class="container">
-        <div class="edu-search">
-          <span class="edu-search__icon">⌕</span>
-          <input class="edu-search__input" type="text" id="searchInput" placeholder="Поиск по статьям...">
-        </div>
-        <div class="search-results" id="searchResults"></div>
-      </div>
-    </div>
-
     <!-- Layout -->
     <div class="edu-layout">
 
       <!-- Сайдбар -->
-      <aside class="edu-sidebar" id="eduSidebar"></aside>
+      <aside class="edu-sidebar">
+        <div class="edu-sidebar__search">
+          <div class="edu-search">
+            <span class="edu-search__icon">⌕</span>
+            <input class="edu-search__input" type="text" id="searchInput" placeholder="Поиск по статьям...">
+          </div>
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <div class="edu-sidebar__nav" id="eduSidebar"></div>
+      </aside>
 
       <!-- Контент -->
       <main class="edu-content" id="eduContent"></main>
