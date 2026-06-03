@@ -288,7 +288,7 @@
 
     /* Экран приветствия (когда статья не выбрана) */
     .edu-welcome {
-      padding: var(--space-2xl) 0;
+      padding: var(--space-md) 0 var(--space-2xl);
       max-width: 700px;
     }
     .edu-welcome__title {
@@ -648,6 +648,7 @@
       <div class="edu-welcome">
         <h2 class="edu-welcome__title">С чего <span>начать?</span></h2>
         <p class="edu-welcome__desc">Выберите раздел который вас интересует или начните с первой статьи — «Быстрый старт». Все материалы бесплатны и не требуют регистрации.</p>
+        <p class="edu-welcome__desc" style="margin-top: calc(var(--space-sm) * -1);">Здесь вы всегда найдёте актуальную информацию о терминале TRYVEX — новых функциях и способах их использования, о криптовалютных рынках и реальных подходах к заработку на них. Мы постоянно пополняем базу знаний — заглядывайте регулярно, чтобы быть среди первых кто узнаёт о новых возможностях.</p>
         <div class="edu-welcome__chapters">
           ${chapters.map(ch => `
             <div class="edu-welcome__chapter" onclick="openArticle('${ch.id}', '${ch.articles[0].id}')">
