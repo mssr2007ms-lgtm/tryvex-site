@@ -3,47 +3,558 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Скринеры — TRYVEX</title>
+  <title>Скринеры криптовалют — Обзор рынка, Спайки, Плиты | TRYVEX</title>
+  <meta name="description" content="Профессиональные скринеры криптовалют в реальном времени: обзор рынка топ-200 фьючерсов Bybit, спайк-скринер резких движений цены, скринер крупных плит в стакане. Бесплатно, без регистрации.">
+  <meta name="keywords" content="скринер криптовалют, скринер фьючерсов, bybit скринер, обзор крипторынка, спайки криптовалют, плиты в стакане, крупные заявки стакан, скринер онлайн">
   <link rel="icon" type="image/png" href="../../assets/icons/favicon.png">
   <link rel="stylesheet" href="../../assets/css/variables.css">
   <link rel="stylesheet" href="../../assets/css/reset.css">
   <link rel="stylesheet" href="../../assets/css/main.css">
   <link rel="stylesheet" href="../../assets/css/nav.css">
   <style>
-    .coming-soon {
-      min-height: 100vh;
+
+    body { background: var(--color-bg); color: var(--color-text); }
+
+    .screeners-page {
+      padding-top: 64px;
+    }
+
+    /* ── Hero ── */
+    .screeners-hero {
+      padding: var(--space-xl) 0 var(--space-lg);
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .screeners-hero__label {
+      display: inline-block;
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      letter-spacing: 0.18em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+    .screeners-hero__title {
+      font-family: var(--font-primary);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-sm);
+    }
+    .screeners-hero__title span { color: var(--color-accent); }
+    .screeners-hero__desc {
+      font-size: var(--size-lg);
+      color: var(--color-text-dim);
+      max-width: 680px;
+      margin: 0 auto var(--space-md);
+      line-height: 1.7;
+    }
+
+    /* Табы навигации */
+    .screeners-tabs {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: var(--space-md);
-      text-align: center;
-      padding: var(--space-xl) var(--space-md);
-      padding-top: calc(64px + var(--space-xl));
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+      padding: var(--space-sm) 0;
     }
-    .coming-soon__icon { font-size: 4rem; }
-    .coming-soon__title {
-      font-family: var(--font-primary);
-      font-size: var(--size-3xl);
+    .screeners-tab {
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--size-sm);
+      font-weight: 500;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-dim);
+      background: transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .screeners-tab:hover {
+      border-color: var(--color-border-hover);
+      color: var(--color-text);
+    }
+    .screeners-tab--active {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      background: var(--color-accent-glow);
+    }
+    .screeners-tab__badge {
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--color-accent);
+      color: #000;
       font-weight: 700;
       letter-spacing: 0.06em;
-      color: var(--color-silver);
     }
-    .coming-soon__title span { color: var(--color-accent); }
-    .coming-soon__desc {
-      font-size: var(--size-lg);
+    .screeners-tab__badge--soon {
+      background: rgba(255,255,255,0.1);
       color: var(--color-text-dim);
-      max-width: 520px;
-      line-height: 1.7;
     }
-    .coming-soon__hint {
-      font-size: var(--size-sm);
-      color: var(--color-text-dim);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
+
+    /* ── Секции ── */
+    .screener-section {
+      display: none;
+    }
+    .screener-section--active {
+      display: block;
+    }
+
+    /* ── Скринер уровней — таблица ── */
+    .levels-screener {
+      padding: var(--space-md) 0 var(--space-2xl);
+    }
+
+    .screener-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-md);
       padding: var(--space-sm) var(--space-md);
       background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
     }
+    .screener-toolbar__left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .screener-toolbar__status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--size-xs);
+      color: var(--color-text-dim);
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-text-dim);
+    }
+    .status-dot--live {
+      background: var(--color-accent);
+      box-shadow: 0 0 6px var(--color-accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .exchange-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .exchange-btn {
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-size: var(--size-xs);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: var(--transition);
+      background: transparent;
+      color: var(--color-text-dim);
+    }
+    .exchange-btn--active {
+      background: var(--color-accent);
+      color: #000;
+      border-color: var(--color-accent);
+    }
+    .screener-toolbar__count {
+      font-size: var(--size-xs);
+      color: var(--color-text-dim);
+      margin-left: auto;
+    }
+
+    /* Таблица */
+    .screener-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+    }
+    .screener-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--size-sm);
+    }
+    .screener-table th {
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-size: var(--size-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--color-text-dim);
+      background: var(--color-bg-card);
+      border-bottom: 1px solid var(--color-border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .screener-table th:hover { color: var(--color-text); }
+    .screener-table th.sort-asc::after  { content: ' ↑'; color: var(--color-accent); }
+    .screener-table th.sort-desc::after { content: ' ↓'; color: var(--color-accent); }
+    .screener-table td {
+      padding: 0.55rem 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      white-space: nowrap;
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+    }
+    .screener-table tr:last-child td { border-bottom: none; }
+    .screener-table tr:hover td { background: rgba(255,255,255,0.025); }
+
+    .sym-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sym-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-accent-glow);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-accent);
+      font-family: var(--font-primary);
+      flex-shrink: 0;
+    }
+    .sym-name {
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      font-weight: 600;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+    }
+    .sym-base {
+      font-size: 10px;
+      color: var(--color-text-dim);
+    }
+
+    .change-pos { color: var(--color-long); }
+    .change-neg { color: var(--color-short); }
+    .change-neu { color: var(--color-text-dim); }
+
+    .vol-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vol-bar {
+      height: 3px;
+      background: var(--color-accent);
+      border-radius: 2px;
+      opacity: 0.5;
+      min-width: 2px;
+    }
+
+    .wall-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .wall-badge--bid {
+      background: rgba(42,157,106,0.15);
+      color: var(--color-long);
+      border: 1px solid rgba(42,157,106,0.3);
+    }
+    .wall-badge--ask {
+      background: rgba(192,57,43,0.15);
+      color: var(--color-short);
+      border: 1px solid rgba(192,57,43,0.3);
+    }
+    .wall-badge--none {
+      color: var(--color-text-dim);
+      font-size: 10px;
+    }
+
+    .screener-loading {
+      text-align: center;
+      padding: var(--space-xl);
+      color: var(--color-text-dim);
+      font-size: var(--size-sm);
+    }
+    .screener-loading__spinner {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--color-border);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto var(--space-sm);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SEO описание под таблицей ── */
+    .screener-seo {
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--color-border);
+    }
+    .screener-seo__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-xl);
+      font-weight: 700;
+      color: var(--color-silver);
+      margin-bottom: var(--space-md);
+      letter-spacing: 0.04em;
+    }
+    .screener-seo__title span { color: var(--color-accent); }
+    .screener-seo__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    .screener-seo__card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-md);
+    }
+    .screener-seo__card h3 {
+      font-family: var(--font-primary);
+      font-size: var(--size-sm);
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: var(--space-xs);
+      letter-spacing: 0.06em;
+    }
+    .screener-seo__card p {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.7;
+    }
+    .screener-seo__text {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      max-width: 860px;
+    }
+    .screener-seo__text p { margin-bottom: var(--space-sm); }
+
+    /* ── Витрина (Спайки / Плиты) ── */
+    .showcase-section {
+      padding: var(--space-xl) 0 var(--space-2xl);
+    }
+    .showcase-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      margin-bottom: var(--space-2xl);
+    }
+    @media (max-width: 768px) {
+      .showcase-hero { grid-template-columns: 1fr; }
+    }
+    .showcase-hero__text h2 {
+      font-family: var(--font-primary);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-sm);
+    }
+    .showcase-hero__text h2 span { color: var(--color-accent); }
+    .showcase-hero__text p {
+      font-size: var(--size-base);
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+    }
+    .showcase-hero__text .cta-row {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    /* Макет-превью */
+    .showcase-mockup {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 0.6rem var(--space-sm);
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .mockup-header__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      box-shadow: 0 0 6px var(--color-accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .mockup-header__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-xs);
+      color: var(--color-text-dim);
+      letter-spacing: 0.1em;
+    }
+    .mockup-rows {
+      padding: var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mockup-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 0.5rem 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-size: var(--size-xs);
+      font-family: var(--font-mono);
+      animation: fadeRow 0.4s ease both;
+    }
+    @keyframes fadeRow {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .mockup-row__sym {
+      font-family: var(--font-primary);
+      font-weight: 600;
+      color: var(--color-silver);
+      min-width: 80px;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+    }
+    .mockup-row__change {
+      font-weight: 700;
+      min-width: 60px;
+    }
+    .mockup-row__label {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .mockup-row__bar {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+
+    /* Блок фич */
+    .showcase-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+    .showcase-feature {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-md);
+    }
+    .showcase-feature__icon {
+      font-size: 1.8rem;
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .showcase-feature__title {
+      font-family: var(--font-primary);
+      font-size: var(--size-sm);
+      font-weight: 600;
+      color: var(--color-silver);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .showcase-feature__desc {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.65;
+    }
+
+    /* SEO блок витрины */
+    .showcase-seo {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-xl);
+    }
+    .showcase-seo h2 {
+      font-family: var(--font-primary);
+      font-size: var(--size-xl);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-md);
+    }
+    .showcase-seo h2 span { color: var(--color-accent); }
+    .showcase-seo p {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      max-width: 860px;
+      margin-bottom: var(--space-sm);
+    }
+    .showcase-seo h3 {
+      font-family: var(--font-primary);
+      font-size: var(--size-base);
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.06em;
+      margin: var(--space-md) 0 var(--space-xs);
+    }
+
+    /* CTA баннер */
+    .screener-cta {
+      margin-top: var(--space-2xl);
+      padding: var(--space-xl);
+      background: linear-gradient(135deg, rgba(0,200,240,0.06), rgba(0,153,187,0.03));
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+    .screener-cta__text h3 {
+      font-family: var(--font-primary);
+      font-size: var(--size-lg);
+      font-weight: 700;
+      color: var(--color-silver);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .screener-cta__text p {
+      font-size: var(--size-sm);
+      color: var(--color-text-dim);
+      line-height: 1.6;
+    }
+    .screener-cta__actions {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
   </style>
 </head>
 <body>
@@ -55,10 +566,10 @@
         <span class="nav__logo-text">TRYVEX</span>
       </a>
       <nav class="nav__links" id="navLinks">
-        <a href="../trade/index.html"               class="nav__link">Торговля</a>
-        <a href="../social/index.html"              class="nav__link">Соцсеть</a>
-        <a href="index.html"                        class="nav__link nav__link--active">Скринеры</a>
-        <a href="../../index.html#pricing"          class="nav__link">Тарифы</a>
+        <a href="../trade/index.html"      class="nav__link">Торговля</a>
+        <a href="../social/index.html"     class="nav__link">Соцсеть</a>
+        <a href="index.html"               class="nav__link nav__link--active">Скринеры</a>
+        <a href="../../index.html#pricing" class="nav__link">Тарифы</a>
       </nav>
       <div class="nav__actions">
         <a href="../../pages/login.html"    class="btn btn-outline btn--sm">Войти</a>
@@ -68,22 +579,685 @@
     </div>
   </header>
 
-  <div class="coming-soon">
-    <div class="coming-soon__icon">📡</div>
-    <h1 class="coming-soon__title">Веб-<span>скринеры</span></h1>
-    <p class="coming-soon__desc">
-      Веб-версия скринеров находится в разработке.<br>
-      Фильтруйте тысячи инструментов в реальном времени уже сейчас — в десктопном приложении.
-    </p>
-    <div class="coming-soon__hint">
-      💡 Скринеры доступны в тарифе Pro — попробуйте 7 дней бесплатно
+  <div class="screeners-page">
+
+    <!-- Hero -->
+    <div class="screeners-hero">
+      <div class="container">
+        <div class="screeners-hero__label">TRYVEX SCREENERS</div>
+        <h1 class="screeners-hero__title">Скринеры <span>криптовалют</span></h1>
+        <p class="screeners-hero__desc">
+          Три профессиональных инструмента для анализа рынка в реальном времени. Находите точки входа, отслеживайте аномальные движения и видите где стоят крупные деньги — быстрее и точнее чем конкуренты.
+        </p>
+
+        <!-- Табы -->
+        <div class="screeners-tabs">
+          <button class="screeners-tab screeners-tab--active" data-tab="levels">
+            📊 Скринер уровней
+            <span class="screeners-tab__badge">LIVE</span>
+          </button>
+          <button class="screeners-tab" data-tab="spikes">
+            ⚡ Спайк-скринер
+            <span class="screeners-tab__badge screeners-tab__badge--soon">PRO</span>
+          </button>
+          <button class="screeners-tab" data-tab="walls">
+            🧱 Скринер плит
+            <span class="screeners-tab__badge screeners-tab__badge--soon">PRO</span>
+          </button>
+        </div>
+      </div>
     </div>
-    <div style="display:flex; gap:var(--space-sm); flex-wrap:wrap; justify-content:center;">
-      <a href="../../index.html#download" class="btn btn-primary">Скачать приложение</a>
-      <a href="../../index.html#pricing"  class="btn btn-outline">Смотреть тарифы</a>
+
+    <div class="container">
+
+      <!-- ═══════════════════════════════════════
+           СКРИНЕР УРОВНЕЙ (рабочий)
+      ═══════════════════════════════════════ -->
+      <section class="screener-section screener-section--active" id="tab-levels">
+        <div class="levels-screener">
+
+          <div class="screener-toolbar">
+            <div class="screener-toolbar__left">
+              <div class="screener-status" id="statusDot">
+                <div class="status-dot"></div>
+              </div>
+              <span class="screener-toolbar__status" id="statusText">Подключение...</span>
+              <div class="exchange-toggle">
+                <button class="exchange-btn exchange-btn--active" id="btnBybit">Bybit Fut</button>
+                <button class="exchange-btn" id="btnBinance">Binance Spot</button>
+              </div>
+            </div>
+            <span class="screener-toolbar__count" id="rowCount"></span>
+          </div>
+
+          <div class="screener-table-wrap">
+            <div class="screener-loading" id="loadingState">
+              <div class="screener-loading__spinner"></div>
+              Загружаем топ-200 инструментов...
+            </div>
+            <table class="screener-table" id="screenerTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th data-col="symbol">#&nbsp;&nbsp;Инструмент</th>
+                  <th data-col="price">Цена</th>
+                  <th data-col="change1h">1ч %</th>
+                  <th data-col="change4h">4ч %</th>
+                  <th data-col="change24h">24ч %</th>
+                  <th data-col="volume">Объём 24ч</th>
+                  <th data-col="bigBid">Плита Bid</th>
+                  <th data-col="bigAsk">Плита Ask</th>
+                </tr>
+              </thead>
+              <tbody id="screenerBody"></tbody>
+            </table>
+          </div>
+
+          <!-- SEO описание -->
+          <div class="screener-seo">
+            <h2 class="screener-seo__title">Скринер уровней — <span>Обзор рынка</span></h2>
+
+            <div class="screener-seo__grid">
+              <div class="screener-seo__card">
+                <h3>Топ-200 по объёму</h3>
+                <p>Таблица формируется автоматически на основе реального объёма торгов за 24 часа. Вверху всегда самые ликвидные инструменты — именно там сосредоточено движение крупных игроков и маркет-мейкеров.</p>
+              </div>
+              <div class="screener-seo__card">
+                <h3>Изменение за 1ч / 4ч / 24ч</h3>
+                <p>Три временных среза одновременно позволяют видеть полную картину: что происходит прямо сейчас (1ч), среднесрочный импульс (4ч) и общий тренд дня (24ч). Красный цвет — снижение, зелёный — рост.</p>
+              </div>
+              <div class="screener-seo__card">
+                <h3>Крупные плиты в стакане</h3>
+                <p>Колонки «Плита Bid» и «Плита Ask» показывают крупнейшие аномальные заявки в стакане каждого инструмента — объём в USD и кратность к среднему. Плита ×5 означает что заявка в 5 раз крупнее средней по стакану.</p>
+              </div>
+              <div class="screener-seo__card">
+                <h3>Данные в реальном времени</h3>
+                <p>Таблица обновляется через WebSocket напрямую с бирж Bybit и Binance без задержек и посредников. Никакой регистрации и API-ключей не нужно — публичные рыночные данные доступны бесплатно.</p>
+              </div>
+            </div>
+
+            <div class="screener-seo__text">
+              <p>
+                <strong style="color:var(--color-silver)">Скринер уровней TRYVEX</strong> — это профессиональный инструмент для мониторинга криптовалютного рынка в режиме реального времени. В отличие от стандартных таблиц на биржах, скринер показывает сразу три временных среза изменения цены и наличие крупных заявок в стакане по каждому инструменту.
+              </p>
+              <p>
+                Скринер работает с фьючерсами Bybit (линейные контракты USDT-маржа) и спотом Binance. Переключение между биржами — в один клик. Данные загружаются через официальные публичные API и обновляются каждую секунду через WebSocket-потоки.
+              </p>
+              <p>
+                Колонки можно сортировать по любому параметру: найдите самые растущие за последний час, самые объёмные за 24 часа или инструменты с крупнейшими плитами в стакане. Это незаменимо для скальперов, которым важно быстро ориентироваться в рынке.
+              </p>
+              <p>
+                В десктопном терминале TRYVEX скринер работает в связке со скальпинг-модулем: клик по инструменту в скринере мгновенно открывает его стакан и график в окне скальпинга. Это сокращает время принятия торгового решения до секунд.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════
+           СПАЙК-СКРИНЕР (витрина)
+      ═══════════════════════════════════════ -->
+      <section class="screener-section" id="tab-spikes">
+        <div class="showcase-section">
+
+          <div class="showcase-hero">
+            <div class="showcase-hero__text">
+              <h2>Спайк-скринер — <span>Резкие движения</span></h2>
+              <p>
+                Спайк-скринер в реальном времени сканирует сотни криптовалютных инструментов и мгновенно сигнализирует когда цена аномально резко движется вверх или вниз. Настройте период (от 5 до 60 секунд) и порог срабатывания (от 0.1%) — и скринер сам найдёт всё интересное на рынке.
+              </p>
+              <p>
+                Именно спайки часто предшествуют сильному импульсному движению — войти в первые секунды после сигнала означает поймать самое начало тренда.
+              </p>
+              <div class="cta-row">
+                <a href="../../index.html#download" class="btn btn-primary">Скачать терминал</a>
+                <a href="../../index.html#pricing"  class="btn btn-outline">Тариф Pro</a>
+              </div>
+            </div>
+
+            <div class="showcase-mockup">
+              <div class="mockup-header">
+                <div class="mockup-header__dot"></div>
+                <span class="mockup-header__title">SPIKE SCREENER · LIVE</span>
+              </div>
+              <div class="mockup-rows" id="spikeMockup">
+                <!-- заполняется JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="showcase-features">
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">⚡</span>
+              <div class="showcase-feature__title">Мгновенное обнаружение</div>
+              <p class="showcase-feature__desc">Скринер обрабатывает тики с нескольких бирж одновременно и выдаёт сигнал в течение 1–2 секунд после начала аномального движения. Никаких задержек и пропущенных спайков.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">🎯</span>
+              <div class="showcase-feature__title">Гибкие настройки</div>
+              <p class="showcase-feature__desc">Выберите период измерения от 5 до 120 секунд и минимальный порог движения. Отфильтруйте инструменты по минимальному объёму — убрать «шум» из низколиквидных монет.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">🔔</span>
+              <div class="showcase-feature__title">Звуковые алерты</div>
+              <p class="showcase-feature__desc">При появлении нового спайка терминал воспроизводит звуковой сигнал — не нужно постоянно смотреть на экран. Отдельные звуки для роста и падения.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">📈</span>
+              <div class="showcase-feature__title">История сигналов</div>
+              <p class="showcase-feature__desc">Все обнаруженные спайки сохраняются в историю сессии с отметкой времени, ценой входа и пиковым значением движения. Анализируйте какие инструменты спайкуют чаще всего.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">🔗</span>
+              <div class="showcase-feature__title">Интеграция со скальпингом</div>
+              <p class="showcase-feature__desc">Один клик по спайку в скринере мгновенно открывает инструмент в скальпинг-модуле. Стакан и график уже загружены — остаётся только принять решение и войти в сделку.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">🌐</span>
+              <div class="showcase-feature__title">Несколько бирж</div>
+              <p class="showcase-feature__desc">Одновременный мониторинг Binance Spot и Bybit Futures. Иконка биржи рядом с каждым сигналом позволяет мгновенно понять откуда пришло движение.</p>
+            </div>
+          </div>
+
+          <div class="showcase-seo">
+            <h2>Что такое <span>спайк-скринер</span> и зачем он нужен трейдеру?</h2>
+            <p>
+              Спайк (от англ. spike — всплеск) в трейдинге — это резкое кратковременное движение цены на значительную величину за короткий промежуток времени. Спайки возникают при выходе важных новостей, крупных рыночных ордерах, ликвидациях позиций или манипуляциях маркет-мейкеров.
+            </p>
+            <p>
+              Для скальпера и интрадей-трейдера спайки представляют особый интерес: именно в эти моменты рынок становится максимально волатильным и создаёт самые быстрые возможности для заработка. Проблема в том, что вручную отследить спайки по сотням инструментов одновременно физически невозможно.
+            </p>
+            <h3>КАК РАБОТАЕТ СПАЙК-СКРИНЕР</h3>
+            <p>
+              Спайк-скринер TRYVEX подключается к WebSocket потокам Binance и Bybit и в реальном времени получает каждую сделку по каждому инструменту. Для каждой монеты ведётся скользящее окно цен за выбранный период (например 10 секунд). Как только изменение цены внутри этого окна превышает заданный порог (например 0.5%) — скринер мгновенно выдаёт сигнал.
+            </p>
+            <p>
+              В отличие от простых таймерных обновлений, скринер TRYVEX работает на уровне тиков — каждая сделка обрабатывается немедленно. Это обеспечивает обнаружение спайка в течение 1–2 секунд от его начала, что критично при скальпинге.
+            </p>
+            <h3>КАК ИСПОЛЬЗОВАТЬ В ТОРГОВЛЕ</h3>
+            <p>
+              Наиболее популярная стратегия — торговля на продолжение спайка. После резкого движения вверх цена часто продолжает расти на волне ликвидаций шортов и срабатывания стоп-приказов. Трейдер входит в первые 2–5 секунд после сигнала скринера и выходит на откате.
+            </p>
+            <p>
+              Вторая стратегия — торговля против спайка (контртренд). При экстремально быстром движении цена часто возвращается на исходный уровень — особенно если спайк произошёл на низком объёме и без очевидных новостей.
+            </p>
+            <p>
+              Спайк-скринер доступен в тарифе Pro терминала TRYVEX. Попробуйте бесплатно в течение 7 дней.
+            </p>
+          </div>
+
+          <div class="screener-cta">
+            <div class="screener-cta__text">
+              <h3>Спайк-скринер доступен в TRYVEX Pro</h3>
+              <p>7 дней бесплатно. Скачайте терминал и начните ловить движения раньше рынка.</p>
+            </div>
+            <div class="screener-cta__actions">
+              <a href="../../index.html#download" class="btn btn-primary">Скачать терминал</a>
+              <a href="../../index.html#pricing"  class="btn btn-outline">Все тарифы</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════
+           СКРИНЕР ПЛИТ (витрина)
+      ═══════════════════════════════════════ -->
+      <section class="screener-section" id="tab-walls">
+        <div class="showcase-section">
+
+          <div class="showcase-hero">
+            <div class="showcase-hero__text">
+              <h2>Скринер плит — <span>Крупные заявки</span></h2>
+              <p>
+                Скринер плит сканирует стаканы сотен инструментов одновременно и находит аномально крупные заявки — «стены» покупателей и продавцов. Плиты часто являются уровнями поддержки и сопротивления: цена притягивается к ним, отбивается от них или, напротив, пробивает с сильным импульсом.
+              </p>
+              <p>
+                Видеть где стоят крупные деньги — ключевое преимущество институционального трейдера. Теперь это доступно каждому.
+              </p>
+              <div class="cta-row">
+                <a href="../../index.html#download" class="btn btn-primary">Скачать терминал</a>
+                <a href="../../index.html#pricing"  class="btn btn-outline">Тариф Pro</a>
+              </div>
+            </div>
+
+            <div class="showcase-mockup">
+              <div class="mockup-header">
+                <div class="mockup-header__dot"></div>
+                <span class="mockup-header__title">WALL SCREENER · LIVE</span>
+              </div>
+              <div class="mockup-rows" id="wallMockup">
+                <!-- заполняется JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="showcase-features">
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">🧱</span>
+              <div class="showcase-feature__title">300+ инструментов</div>
+              <p class="showcase-feature__desc">Скринер одновременно держит WebSocket-подключение к стаканам 300 топовых инструментов по объёму. Ни одна крупная плита не останется незамеченной — независимо от того на каком инструменте она появилась.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">📐</span>
+              <div class="showcase-feature__title">Кратность к среднему</div>
+              <p class="showcase-feature__desc">Каждая плита оценивается как кратность к среднему объёму по стакану инструмента. Плита ×15 на BTCUSDT и плита ×15 на случайном альткоине — одинаково значимые события, несмотря на разные абсолютные объёмы.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">💰</span>
+              <div class="showcase-feature__title">Объём в USDT</div>
+              <p class="showcase-feature__desc">Помимо кратности скринер показывает абсолютный объём плиты в долларах. Это помогает отфильтровать технически значимые но мелкие заявки на низколиквидных монетах от действительно крупного капитала.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">⚖️</span>
+              <div class="showcase-feature__title">Bid и Ask раздельно</div>
+              <p class="showcase-feature__desc">Скринер показывает плиты как со стороны покупателей (Bid — поддержка), так и со стороны продавцов (Ask — сопротивление). Зелёный — крупный покупатель держит уровень, красный — крупный продавец блокирует рост.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">🔄</span>
+              <div class="showcase-feature__title">Обновление в реальном времени</div>
+              <p class="showcase-feature__desc">Плиты в стакане могут появляться и исчезать за секунды. Скринер отслеживает изменения стакана через WebSocket и мгновенно обновляет список — вы всегда видите актуальную картину.</p>
+            </div>
+            <div class="showcase-feature">
+              <span class="showcase-feature__icon">📏</span>
+              <div class="showcase-feature__title">Расстояние до цены</div>
+              <p class="showcase-feature__desc">Для каждой плиты скринер показывает на каком расстоянии (в %) она находится от текущей цены. Это позволяет сразу оценить насколько далеко уровень и актуален ли он для торговли прямо сейчас.</p>
+            </div>
+          </div>
+
+          <div class="showcase-seo">
+            <h2>Что такое <span>плита в стакане</span> и как её использовать?</h2>
+            <p>
+              Плита (wall) в торговле — это аномально крупная заявка в стакане ордеров (order book), которая значительно превышает средний объём по остальным уровням. Плиты размещают крупные участники рынка: маркет-мейкеры, хедж-фонды, «киты» — игроки с капиталом от миллионов до миллиардов долларов.
+            </p>
+            <p>
+              Плита на стороне Bid (покупка) создаёт уровень поддержки — продавцам трудно продавить цену ниже, пока эта заявка стоит в стакане. Плита на стороне Ask (продажа) работает как сопротивление. Трейдеры ориентируются на плиты при выборе точек входа, размещении стоп-лоссов и определении целей.
+            </p>
+            <h3>КАК РАБОТАЕТ СКРИНЕР ПЛИТ</h3>
+            <p>
+              Скринер плит TRYVEX подключается к WebSocket-потокам стаканов через API Binance и Bybit. Для каждого инструмента ведётся полный стакан из 50–500 уровней. По каждому стакану рассчитывается средний объём на уровень, а затем находятся все заявки превышающие это среднее в N раз (порог настраивается, по умолчанию ×10).
+            </p>
+            <p>
+              Все найденные плиты по всем инструментам сводятся в единую таблицу и сортируются по кратности. Вверху всегда самые аномальные заявки на всём рынке — независимо от биржи и инструмента.
+            </p>
+            <h3>СТРАТЕГИИ ТОРГОВЛИ С ПЛИТАМИ</h3>
+            <p>
+              <strong style="color:var(--color-silver)">Отбой от плиты.</strong> Если цена приближается к крупной плите Bid снизу и замедляется — это сигнал для покупки с целью на ближайшее сопротивление. Стоп размещается чуть ниже плиты.
+            </p>
+            <p>
+              <strong style="color:var(--color-silver)">Пробой плиты.</strong> Если цена сбивает крупную плиту Ask с высоким объёмом — это признак силы покупателей и сигнал на продолжение роста. Вход на пробое или откате к уровню бывшей плиты.
+            </p>
+            <p>
+              <strong style="color:var(--color-silver)">Исчезновение плиты.</strong> Если крупная плита внезапно убирается из стакана до того как цена до неё дошла — это часто манипуляция. Такое движение может означать разворот или подготовку к сильному движению в противоположную сторону.
+            </p>
+            <p>
+              Скринер плит доступен в тарифе Pro терминала TRYVEX вместе со спайк-скринером и полным скальпинг-модулем. Попробуйте 7 дней бесплатно.
+            </p>
+          </div>
+
+          <div class="screener-cta">
+            <div class="screener-cta__text">
+              <h3>Скринер плит доступен в TRYVEX Pro</h3>
+              <p>Видьте где стоят крупные деньги — торгуйте вместе с институционалами, а не против них.</p>
+            </div>
+            <div class="screener-cta__actions">
+              <a href="../../index.html#download" class="btn btn-primary">Скачать терминал</a>
+              <a href="../../index.html#pricing"  class="btn btn-outline">Все тарифы</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   </div>
 
   <script type="module" src="../../js/nav.js"></script>
+  <script type="module">
+
+    // ── Табы ────────────────────────────────────────────────────────────
+    document.querySelectorAll('.screeners-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.screeners-tab').forEach(t => t.classList.remove('screeners-tab--active'));
+        document.querySelectorAll('.screener-section').forEach(s => s.classList.remove('screener-section--active'));
+        tab.classList.add('screeners-tab--active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('screener-section--active');
+      });
+    });
+
+    // ── Анимированные строки в макетах ──────────────────────────────────
+    const spikeData = [
+      { sym: 'SOLUSDT',   chg: '+1.24%', label: 'РОСТ',    color: 'var(--color-long)',  bar: 80 },
+      { sym: 'DOGEUSDT',  chg: '+0.87%', label: 'РОСТ',    color: 'var(--color-long)',  bar: 60 },
+      { sym: 'AVAXUSDT',  chg: '-0.92%', label: 'ПАДЕНИЕ', color: 'var(--color-short)', bar: 65 },
+      { sym: 'LINKUSDT',  chg: '+1.55%', label: 'РОСТ',    color: 'var(--color-long)',  bar: 90 },
+      { sym: 'APTUSDT',   chg: '-0.61%', label: 'ПАДЕНИЕ', color: 'var(--color-short)', bar: 45 },
+    ];
+    const wallData = [
+      { sym: 'BTCUSDT',   side: 'Bid', ratio: '×24', usd: '$4.2M', color: 'var(--color-long)'  },
+      { sym: 'ETHUSDT',   side: 'Ask', ratio: '×18', usd: '$1.8M', color: 'var(--color-short)' },
+      { sym: 'SOLUSDT',   side: 'Bid', ratio: '×31', usd: '$890K', color: 'var(--color-long)'  },
+      { sym: 'BNBUSDT',   side: 'Ask', ratio: '×15', usd: '$2.1M', color: 'var(--color-short)' },
+      { sym: 'XRPUSDT',   side: 'Bid', ratio: '×22', usd: '$560K', color: 'var(--color-long)'  },
+    ];
+
+    function buildMockupRow(data, type) {
+      const row = document.createElement('div');
+      row.className = 'mockup-row';
+      row.style.animationDelay = data.delay + 'ms';
+      if (type === 'spike') {
+        row.innerHTML = `
+          <span class="mockup-row__sym">${data.sym}</span>
+          <span class="mockup-row__change" style="color:${data.color}">${data.chg}</span>
+          <span class="mockup-row__label" style="background:${data.color}22;color:${data.color};border:1px solid ${data.color}44">${data.label}</span>
+          <div class="mockup-row__bar" style="background:${data.color};width:${data.bar}%"></div>
+        `;
+      } else {
+        row.innerHTML = `
+          <span class="mockup-row__sym">${data.sym}</span>
+          <span class="mockup-row__label" style="background:${data.color}22;color:${data.color};border:1px solid ${data.color}44">${data.side}</span>
+          <span class="mockup-row__change" style="color:${data.color}">${data.ratio}</span>
+          <span style="color:var(--color-text-dim);font-size:10px;margin-left:auto">${data.usd}</span>
+        `;
+      }
+      return row;
+    }
+
+    spikeData.forEach((d, i) => { d.delay = i * 150; document.getElementById('spikeMockup').appendChild(buildMockupRow(d, 'spike')); });
+    wallData.forEach((d, i)  => { d.delay = i * 150; document.getElementById('wallMockup').appendChild(buildMockupRow(d, 'wall')); });
+
+    // ── Скринер уровней — данные ─────────────────────────────────────────
+    let items = [];
+    let sortCol = 'volume';
+    let sortDir = -1;
+    let exchange = 'bybit';
+    let wsActive = false;
+
+    const statusDot  = document.querySelector('#statusDot .status-dot');
+    const statusText = document.getElementById('statusText');
+    const loadingEl  = document.getElementById('loadingState');
+    const tableEl    = document.getElementById('screenerTable');
+    const tbody      = document.getElementById('screenerBody');
+    const rowCount   = document.getElementById('rowCount');
+
+    function setStatus(live, text) {
+      statusDot.className = 'status-dot' + (live ? ' status-dot--live' : '');
+      statusText.textContent = text;
+    }
+
+    function fmtPrice(p) {
+      if (!p) return '—';
+      if (p >= 1000) return p.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
+      if (p >= 1)    return p.toFixed(4);
+      return p.toFixed(6);
+    }
+    function fmtVol(v) {
+      if (!v) return '—';
+      if (v >= 1e9) return (v / 1e9).toFixed(1) + 'B';
+      if (v >= 1e6) return (v / 1e6).toFixed(1) + 'M';
+      if (v >= 1e3) return (v / 1e3).toFixed(1) + 'K';
+      return v.toFixed(0);
+    }
+    function fmtChg(c) {
+      if (c === null || c === undefined || isNaN(c)) return '<span class="change-neu">—</span>';
+      const cls = c > 0 ? 'change-pos' : c < 0 ? 'change-neg' : 'change-neu';
+      return `<span class="${cls}">${c > 0 ? '+' : ''}${c.toFixed(2)}%</span>`;
+    }
+    function fmtWall(usd, ratio) {
+      if (!usd || usd < 1000) return '<span class="wall-badge--none">—</span>';
+      return `<span class="wall-badge wall-badge--bid">${fmtVol(usd)} ×${ratio.toFixed(1)}</span>`;
+    }
+    function fmtWallAsk(usd, ratio) {
+      if (!usd || usd < 1000) return '<span class="wall-badge--none">—</span>';
+      return `<span class="wall-badge wall-badge--ask">${fmtVol(usd)} ×${ratio.toFixed(1)}</span>`;
+    }
+
+    let maxVol = 1;
+
+    function renderTable() {
+      const sorted = [...items].sort((a, b) => {
+        let av = a[sortCol] ?? 0, bv = b[sortCol] ?? 0;
+        if (sortCol === 'symbol') { av = a.symbol; bv = b.symbol; }
+        if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+        return sortDir * (av - bv);
+      });
+
+      maxVol = Math.max(...sorted.map(x => x.volume || 0), 1);
+
+      const html = sorted.map((item, idx) => {
+        const volPct = Math.round((item.volume / maxVol) * 80);
+        const base   = item.symbol.replace('USDT', '');
+        const letter = base.charAt(0);
+        return `<tr>
+          <td>
+            <div class="sym-cell">
+              <div class="sym-icon">${letter}</div>
+              <div>
+                <div class="sym-name">${base}</div>
+                <div class="sym-base">/ USDT</div>
+              </div>
+            </div>
+          </td>
+          <td>${fmtPrice(item.price)}</td>
+          <td>${fmtChg(item.change1h)}</td>
+          <td>${fmtChg(item.change4h)}</td>
+          <td>${fmtChg(item.change24h)}</td>
+          <td>
+            <div class="vol-bar-wrap">
+              <span>${fmtVol(item.volume)}</span>
+              <div class="vol-bar" style="width:${volPct}px"></div>
+            </div>
+          </td>
+          <td>${fmtWall(item.bigBid, item.bigBidRatio)}</td>
+          <td>${fmtWallAsk(item.bigAsk, item.bigAskRatio)}</td>
+        </tr>`;
+      }).join('');
+
+      tbody.innerHTML = html;
+      rowCount.textContent = `${sorted.length} инструментов`;
+    }
+
+    // Сортировка по клику на заголовок
+    document.querySelectorAll('.screener-table th').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        if (sortCol === col) sortDir *= -1;
+        else { sortCol = col; sortDir = -1; }
+        document.querySelectorAll('.screener-table th').forEach(t => t.classList.remove('sort-asc', 'sort-desc'));
+        th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+        renderTable();
+      });
+    });
+
+    // Переключение биржи
+    document.getElementById('btnBybit').addEventListener('click', () => {
+      if (exchange === 'bybit') return;
+      exchange = 'bybit';
+      document.getElementById('btnBybit').classList.add('exchange-btn--active');
+      document.getElementById('btnBinance').classList.remove('exchange-btn--active');
+      startScreener();
+    });
+    document.getElementById('btnBinance').addEventListener('click', () => {
+      if (exchange === 'binance') return;
+      exchange = 'binance';
+      document.getElementById('btnBinance').classList.add('exchange-btn--active');
+      document.getElementById('btnBybit').classList.remove('exchange-btn--active');
+      startScreener();
+    });
+
+    // ── Загрузка данных ──────────────────────────────────────────────────
+
+    let currentWs = null;
+
+    async function startScreener() {
+      if (currentWs) { currentWs.close(); currentWs = null; }
+      items = [];
+      loadingEl.style.display = 'block';
+      tableEl.style.display   = 'none';
+      setStatus(false, 'Загрузка...');
+
+      try {
+        if (exchange === 'bybit') await loadBybit();
+        else await loadBinance();
+      } catch(e) {
+        setStatus(false, 'Ошибка загрузки');
+      }
+    }
+
+    async function loadBybit() {
+      setStatus(false, 'Загрузка Bybit Futures...');
+      const url  = 'https://api.bybit.com/v5/market/tickers?category=linear';
+      const resp = await fetch(url);
+      const json = await resp.json();
+      const list = json?.result?.list ?? [];
+
+      items = list
+        .filter(x => x.symbol?.endsWith('USDT'))
+        .map(x => ({
+          symbol:    x.symbol,
+          price:     parseFloat(x.lastPrice)     || 0,
+          change24h: parseFloat(x.price24hPcnt)  * 100 || 0,
+          volume:    parseFloat(x.turnover24h)   || 0,
+          change1h:  null,
+          change4h:  null,
+          bigBid: 0, bigBidRatio: 0,
+          bigAsk: 0, bigAskRatio: 0,
+        }))
+        .sort((a, b) => b.volume - a.volume)
+        .slice(0, 200);
+
+      showTable();
+      setStatus(true, 'Bybit Futures · обновляется');
+      startBybitWs();
+      loadBybitKlines();
+    }
+
+    async function loadBinance() {
+      setStatus(false, 'Загрузка Binance Spot...');
+      const url  = 'https://api.binance.com/api/v3/ticker/24hr';
+      const resp = await fetch(url);
+      const json = await resp.json();
+
+      items = json
+        .filter(x => x.symbol?.endsWith('USDT'))
+        .map(x => ({
+          symbol:    x.symbol,
+          price:     parseFloat(x.lastPrice)         || 0,
+          change24h: parseFloat(x.priceChangePercent) || 0,
+          volume:    parseFloat(x.quoteVolume)        || 0,
+          change1h:  null,
+          change4h:  null,
+          bigBid: 0, bigBidRatio: 0,
+          bigAsk: 0, bigAskRatio: 0,
+        }))
+        .sort((a, b) => b.volume - a.volume)
+        .slice(0, 200);
+
+      showTable();
+      setStatus(true, 'Binance Spot · обновляется');
+      startBinanceWs();
+      loadBinanceKlines();
+    }
+
+    function showTable() {
+      loadingEl.style.display = 'none';
+      tableEl.style.display   = 'table';
+      renderTable();
+    }
+
+    // ── WebSocket Bybit ──────────────────────────────────────────────────
+    function startBybitWs() {
+      try {
+        const ws = new WebSocket('wss://stream.bybit.com/v5/public/linear');
+        currentWs = ws;
+        ws.onopen = () => {
+          const syms = items.map(x => `tickers.${x.symbol}`);
+          for (let i = 0; i < syms.length; i += 10) {
+            ws.send(JSON.stringify({ op: 'subscribe', args: syms.slice(i, i + 10) }));
+          }
+        };
+        ws.onmessage = e => {
+          try {
+            const msg = JSON.parse(e.data);
+            if (!msg.topic?.startsWith('tickers.')) return;
+            const d   = msg.data;
+            const sym = d?.symbol;
+            if (!sym) return;
+            const item = items.find(x => x.symbol === sym);
+            if (!item) return;
+            if (d.lastPrice)    item.price     = parseFloat(d.lastPrice);
+            if (d.price24hPcnt) item.change24h = parseFloat(d.price24hPcnt) * 100;
+            if (d.turnover24h)  item.volume    = parseFloat(d.turnover24h);
+            renderTable();
+          } catch {}
+        };
+        ws.onerror = () => setStatus(false, 'Ошибка WebSocket');
+      } catch {}
+    }
+
+    // ── WebSocket Binance ────────────────────────────────────────────────
+    function startBinanceWs() {
+      try {
+        const ws = new WebSocket('wss://stream.binance.com:9443/ws/!miniTicker@arr');
+        currentWs = ws;
+        ws.onmessage = e => {
+          try {
+            const arr = JSON.parse(e.data);
+            let changed = false;
+            for (const d of arr) {
+              const item = items.find(x => x.symbol === d.s);
+              if (!item) continue;
+              if (d.c) item.price  = parseFloat(d.c);
+              if (d.v && d.c) item.volume = parseFloat(d.v) * parseFloat(d.c);
+              changed = true;
+            }
+            if (changed) renderTable();
+          } catch {}
+        };
+        ws.onerror = () => setStatus(false, 'Ошибка WebSocket');
+      } catch {}
+    }
+
+    // ── Загрузка изменений за 1ч/4ч ─────────────────────────────────────
+    async function loadBybitKlines() {
+      const top30 = items.slice(0, 30);
+      for (const item of top30) {
+        try {
+          const [r1h, r4h] = await Promise.all([
+            fetch(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${item.symbol}&interval=60&limit=2`).then(r => r.json()),
+            fetch(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${item.symbol}&interval=240&limit=2`).then(r => r.json()),
+          ]);
+          const list1h = r1h?.result?.list;
+          const list4h = r4h?.result?.list;
+          if (list1h?.[0]?.[1] && item.price) item.change1h = (item.price - parseFloat(list1h[0][1])) / parseFloat(list1h[0][1]) * 100;
+          if (list4h?.[0]?.[1] && item.price) item.change4h = (item.price - parseFloat(list4h[0][1])) / parseFloat(list4h[0][1]) * 100;
+          renderTable();
+          await new Promise(r => setTimeout(r, 100));
+        } catch {}
+      }
+    }
+
+    async function loadBinanceKlines() {
+      const top30 = items.slice(0, 30);
+      for (const item of top30) {
+        try {
+          const [r1h, r4h] = await Promise.all([
+            fetch(`https://api.binance.com/api/v3/klines?symbol=${item.symbol}&interval=1h&limit=2`).then(r => r.json()),
+            fetch(`https://api.binance.com/api/v3/klines?symbol=${item.symbol}&interval=4h&limit=2`).then(r => r.json()),
+          ]);
+          if (r1h?.[0]?.[1] && item.price) item.change1h = (item.price - parseFloat(r1h[0][1])) / parseFloat(r1h[0][1]) * 100;
+          if (r4h?.[0]?.[1] && item.price) item.change4h = (item.price - parseFloat(r4h[0][1])) / parseFloat(r4h[0][1]) * 100;
+          renderTable();
+          await new Promise(r => setTimeout(r, 100));
+        } catch {}
+      }
+    }
+
+    // ── Старт ─────────────────────────────────────────────────────────────
+    startScreener();
+
+  </script>
 </body>
 </html>
