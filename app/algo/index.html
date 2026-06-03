@@ -268,11 +268,12 @@
     /* ── Для кого — две колонки ── */
     .algo-audience {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: var(--space-md);
       margin-top: var(--space-xl);
     }
-    @media (max-width: 768px) { .algo-audience { grid-template-columns: 1fr; } }
+    @media (max-width: 1024px) { .algo-audience { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px)  { .algo-audience { grid-template-columns: 1fr; } }
 
     .audience-card {
       background: var(--color-bg-card);
@@ -722,19 +723,35 @@
           </div>
 
           <div class="audience-card audience-card--accent">
-            <span class="audience-card__tag">НЕТ НАВЫКОВ ПРОГРАММИРОВАНИЯ</span>
-            <h3 class="audience-card__title">Закажите бота —<br><span>мы реализуем вашу идею</span></h3>
+            <span class="audience-card__tag">ХОЧУ АВТОМАТИЗИРОВАТЬ ТОРГОВЛЮ</span>
+            <h3 class="audience-card__title">Торгую руками —<br>хочу чтобы <span>работал робот</span></h3>
             <p class="audience-card__desc">
-              Есть торговая стратегия но нет времени или желания разбираться в коде? Опишите нам свою идею — мы напишем робота под ваши требования. Любая логика входа, управления позицией и выхода.
+              Вы уже торгуете и знаете что работает: видите сигналы, чувствуете рынок, но устали сидеть у экрана. Опишите как вы принимаете решения — мы превратим вашу ручную стратегию в автоматического робота.
             </p>
             <ul class="audience-card__list">
-              <li>Вы описываете стратегию — мы реализуем</li>
-              <li>Любая сложность: от простого до арбитражного</li>
-              <li>Тестирование и настройка параметров включены</li>
-              <li>Бот запускается прямо в вашем терминале TRYVEX</li>
-              <li>Поддержка и доработки после сдачи</li>
+              <li>Описываете словами как торгуете сейчас</li>
+              <li>Мы формализуем логику и переводим в код</li>
+              <li>Бэктест покажет как стратегия работала в прошлом</li>
+              <li>Демо-режим подтвердит что робот торгует как вы</li>
+              <li>Больше не нужно сидеть у экрана 24/7</li>
             </ul>
-            <a href="#order" class="btn btn-primary">Заказать бота</a>
+            <a href="#order" class="btn btn-outline">Автоматизировать стратегию</a>
+          </div>
+
+          <div class="audience-card">
+            <span class="audience-card__tag">НЕТ СТРАТЕГИИ И КОДА</span>
+            <h3 class="audience-card__title">Хочу в алготрейдинг —<br><span>с чего начать?</span></h3>
+            <p class="audience-card__desc">
+              Слышали об алготрейдинге, хотите попробовать, но не знаете с чего начать? Мы поможем: подберём готовую стратегию из библиотеки, настроим под ваш стиль торговли и запустим вместе.
+            </p>
+            <ul class="audience-card__list">
+              <li>99+ готовых стратегий — есть из чего выбрать</li>
+              <li>Подберём подходящую под ваши цели и биржу</li>
+              <li>Настроим параметры по результатам бэктеста</li>
+              <li>Запустим в демо — убедитесь до вложения денег</li>
+              <li>Обучение прямо в терминале — раздел с курсами</li>
+            </ul>
+            <a href="../../index.html#download" class="btn btn-outline">Скачать и попробовать</a>
           </div>
         </div>
       </section>
