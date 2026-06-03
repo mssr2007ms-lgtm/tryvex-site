@@ -659,8 +659,14 @@
   let currentArticleId = null;
 
   // Плоский список всех статей для навигации prev/next и поиска
+  // Порядок совпадает с порядком в сайдбаре: терминал — как есть, остальные — по алфавиту
   const allArticles = [];
-  chapters.forEach(ch => ch.articles.forEach(a => allArticles.push({ ...a, chapterId: ch.id, chapterTitle: ch.title })));
+  chapters.forEach(ch => {
+    const articles = ch.id === 'terminal'
+      ? ch.articles
+      : [...ch.articles].sort((a, b) => a.title.localeCompare(b.title, 'ru'));
+    articles.forEach(a => allArticles.push({ ...a, chapterId: ch.id, chapterTitle: ch.title }));
+  });
 
   // ══════════════════════════════════════════════════════════
   // РЕНДЕР САЙДБАРА
