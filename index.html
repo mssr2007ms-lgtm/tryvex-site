@@ -561,9 +561,32 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════════ -->
+  <section id="contact" style="padding: 80px 0; border-top: 1px solid rgba(0,200,240,0.15);">
+    <div class="container" style="max-width: 560px; margin: 0 auto; text-align: center;">
+      <h2 class="section-title">Связаться с <span>нами</span></h2>
+      <div class="accent-line"></div>
+      <p class="section-subtitle" style="margin-bottom: 40px;">Расскажите о вашей задаче — мы ответим в течение дня.</p>
+      <div style="text-align: left;">
+        <div style="margin-bottom: 16px;">
+          <label style="display:block; font-size:12px; color:var(--color-muted); margin-bottom:6px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em;">Имя <span style="opacity:0.5;">(необязательно)</span></label>
+          <input id="contact-name" type="text" placeholder="Ваше имя" style="width:100%; box-sizing:border-box; background:#111827; border:1px solid rgba(0,200,240,0.3); color:#e2e8f0; padding:12px 16px; border-radius:6px; font-family:var(--font-mono); font-size:14px; outline:none;">
+        </div>
+        <div style="margin-bottom: 16px;">
+          <label style="display:block; font-size:12px; color:var(--color-muted); margin-bottom:6px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em;">Email</label>
+          <input id="contact-email" type="email" placeholder="ваш@email.com" style="width:100%; box-sizing:border-box; background:#111827; border:1px solid rgba(0,200,240,0.3); color:#e2e8f0; padding:12px 16px; border-radius:6px; font-family:var(--font-mono); font-size:14px; outline:none;">
+        </div>
+        <button onclick="submitContact()" style="width:100%; background:var(--color-cyan); color:#0a0e1a; border:none; padding:14px; border-radius:6px; font-family:var(--font-mono); font-size:14px; font-weight:700; letter-spacing:0.05em; cursor:pointer;" id="contact-btn">ОТПРАВИТЬ</button>
+        <div id="contact-msg" style="margin-top:12px; font-size:13px; text-align:center; min-height:18px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->
-  <footer class="footer" id="contact">
+  <footer class="footer">
     <div class="container">
       <div class="footer__top">
 
@@ -624,6 +647,41 @@
   <script type="module" src="js/main.js"></script>
   <script type="module" src="js/faq.js"></script>
   <script>
+    function submitContact() {
+      var email = document.getElementById('contact-email').value.trim();
+      var name = document.getElementById('contact-name').value.trim();
+      var msg = document.getElementById('contact-msg');
+      var btn = document.getElementById('contact-btn');
+      if (!email || !email.includes('@')) {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Введите корректный email';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+      fetch('https://crm.youwo.ru/api/leads/cmq35tje4002izu2yhhlbam75', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name || 'Обращение с сайта', email: email, question_1: 'TRYVEX поддержка' })
+      })
+      .then(function(r) {
+        if (r.ok) {
+          msg.style.color = '#00c8f0';
+          msg.textContent = '✓ Отправлено! Ответим в течение дня.';
+          document.getElementById('contact-email').value = '';
+          document.getElementById('contact-name').value = '';
+          btn.textContent = 'ОТПРАВИТЬ';
+          btn.disabled = false;
+        } else { throw new Error(); }
+      })
+      .catch(function() {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Ошибка. Попробуйте позже.';
+        btn.textContent = 'ОТПРАВИТЬ';
+        btn.disabled = false;
+      });
+    }
+
     function submitEarlyAccess() {
       var email = document.getElementById('early-access-email').value.trim();
       var msg = document.getElementById('early-access-msg');

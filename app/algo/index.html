@@ -1078,9 +1078,8 @@
   <script type="module" src="../../js/nav.js"></script>
   <script>
     // CRM интеграция — тот же паттерн что на ywo.it
-    // Когда CRM задеплоена: заполнить CRM_API_URL и CRM_API_KEY
-    const CRM_API_URL = '';
-    const CRM_API_KEY = '';
+    const CRM_API_URL = 'https://crm.youwo.ru/api';
+    const CRM_API_KEY = 'cmq35vknj002mzu2ym19l75o1';
 
     async function sendToCrm(data) {
       if (!CRM_API_URL || !CRM_API_KEY) return false;
