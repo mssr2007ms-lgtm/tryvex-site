@@ -635,7 +635,7 @@
       }
       btn.disabled = true;
       btn.textContent = 'Отправка...';
-      fetch('https://crm.youwo.ru:3001/api/leads/cmq34zdv30016zu2y9c4dxq26', {
+      fetch('https://crm.youwo.ru/api/leads/cmq34zdv30016zu2y9c4dxq26', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: 'Ранний доступ', email: email, question_1: 'TRYVEX Windows' })
