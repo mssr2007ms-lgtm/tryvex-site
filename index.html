@@ -354,11 +354,16 @@
         <div class="download__platforms">
 
           <div class="download-platform download-platform--active">
-            <div class="download-platform__badge">ДОСТУПНО</div>
+            <div class="download-platform__badge">РАННИЙ ДОСТУП</div>
             <div class="download-platform__icon">🪟</div>
             <span class="download-platform__name">Windows</span>
             <span class="download-platform__version">Windows 10 / 11 · x64</span>
-            <a href="#" class="btn btn-primary" style="margin-top:var(--space-xs);">Скачать</a>
+            <button class="btn btn-primary" id="early-access-btn" style="margin-top:var(--space-xs);" onclick="document.getElementById('early-access-form').style.display='flex'">Получить доступ</button>
+            <div id="early-access-form" style="display:none; flex-direction:column; gap:8px; margin-top:12px; width:100%;">
+              <input type="email" id="early-access-email" placeholder="ваш@email.com" style="background:#0a0e1a; border:1px solid #00c8f0; color:#e2e8f0; padding:10px 14px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; outline:none; width:100%; box-sizing:border-box;">
+              <button class="btn btn-primary" id="early-access-submit" onclick="submitEarlyAccess()" style="width:100%;">Отправить</button>
+              <div id="early-access-msg" style="font-size:12px; text-align:center; min-height:16px;"></div>
+            </div>
           </div>
 
           <div class="download-platform download-platform--soon">
@@ -618,6 +623,48 @@
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/main.js"></script>
   <script type="module" src="js/faq.js"></script>
+  <script>
+    function submitEarlyAccess() {
+      var email = document.getElementById('early-access-email').value.trim();
+      var msg = document.getElementById('early-access-msg');
+      var btn = document.getElementById('early-access-submit');
+      if (!email || !email.includes('@')) {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Введите корректный email';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+      fetch('https://crm.youwo.ru:3001/api/leads/cmq34zdv30016zu2y9c4dxq26', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'Ранний доступ', email: email, question_1: 'TRYVEX Windows' })
+      })
+      .then(function(r) {
+        if (r.ok) {
+          msg.style.color = '#00c8f0';
+          msg.textContent = '✓ Вы в списке! Отправим ссылку на email.';
+          document.getElementById('early-access-email').value = '';
+          btn.textContent = 'Отправить';
+          btn.disabled = false;
+        } else {
+          throw new Error('error');
+        }
+      })
+      .catch(function() {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Ошибка. Попробуйте позже.';
+        btn.textContent = 'Отправить';
+        btn.disabled = false;
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && document.getElementById('early-access-form').style.display === 'flex') {
+        submitEarlyAccess();
+      }
+    });
+  </script>
 
 </body>
 </html>
